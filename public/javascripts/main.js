@@ -4,102 +4,123 @@
 window.onload = function (evt) {
     console.log("js loaded");
 
-    function containPreviousCode() {
-        console.log('INSTRUCTIOS:  This game is in progress.  To see animations, please click on the spinning icons on both sides of the screen.');
-        // CHARACTER CLASS, USED FOR OUR POKEMON
-        class Character {
-            constructor(characterName, pic, gif, stats, abilities) {
-                this.name = characterName;
-                this.pic = pic;
-                this.gif = gif;
-                this.stats = stats;
-                this.abilities = abilities;
-            }
-            // function goes to the api and gets a promise for pokemon object
-            getCharacterPromise(characterName) {
-                const endpoint = characterName || this.name;
-                return new Promise((resolve, reject) => {
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('GET', `${this.apiURL}/${endpoint}/`);
-                    xhr.send();
-                    xhr.onload = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            // store our data to the localStorage object, in case of errors later
-                            console.log('successful fetch to api');
-                            localStorage.setItem(characterName, xhr.responseText);
-                        }
-                        resolve(JSON.parse(xhr.responseText));
-                    };
-                    xhr.onerror = function () {
-                        // instead of rejecting the error, we are resolving the data on the local storage.
-                        console.log('local storage in the error event: ', localStorage);
-                        resolve(JSON.parse(localStorage[characterName]));
-                        // reject(xhr.statusText);
-                    };
-                });
-            }
-            makeCharacterInstance(characterObject) {
-                // take all of the data in the object that the a.p.i. returns
-                // and extract it in a way that allows us to neatly pass it to our Character constructor function:
-                const characterName = characterObject.name;
-                const reformattedStats = characterObject.stats.reduce((reformatted, stat) => {
-                    reformatted[stat.stat.name] = stat.base_stat;
-                    return reformatted;
-                }, {});
-                const reformattedAbilities = characterObject.abilities.reduce((arr, ability, index) => {
-                    arr[index] = ability.ability.name;
-                    return arr;
-                }, []);
-                const defaultPic = characterObject.sprites.front_default;
-                // if our hash of gifs, contains a gif for this character, add it;  if not, store it as a 'null' value
-                const gif = Character.prototype.gifs[characterName] || null;
-                // create an instance of a Character constructor function/ class, and return it.
-                return new Character(characterName, defaultPic, gif, reformattedStats, reformattedAbilities);
-            }
+    // The Character class has methods that go to the Pokemon api and fetch a Pokemon character JSON, and then reformat
+    // the JSON into an object that we can then use in our JS.
+    class Character {
+        constructor(characterName, pic, gif, stats, abilities) {
+            this.name = characterName;
+            this.pic = pic;
+            this.stats = stats;
+            this.abilities = abilities;
         }
-        Character.prototype.apiURL = 'https://pokeapi.co/api/v2/pokemon';
-        // since we are adding external gifs, we will store whichever gifs we are able to find here:
-        // #NOTE: paste the gif you want to use for your characters here:
-        Character.prototype.gifs = {
-            weezing: 'add gif',
-            oddish: 'add gif',
-            gloom: 'add gif',
-            dragonair: 'http://www.pokestadium.com/sprites/xy/dragonair-2.gif',
-            butterfree:
-                'http://rs744.pbsrc.com/albums/xx87/jessstaardust/tumblr_n1234ahMHc1s2qnyjo1_250_zpsa8f9c122.gif~c200',
-            charmeleon:
-                'https://orig00.deviantart.net/5293/f/2016/030/b/7/charmeleon_gif_by_queenaries-d9px7h5.gif',
-        };
-        // PLAYER CLASS USED FOR OUR TRAINERS
-        class Player {
-            constructor(playerName, charactersArray) {
-                this.name = playerName;
-                this.gym = {};
-                this.characters = charactersArray;
-            }
-            // made load gym a promise too, so that we can do things after the gyms are loaded:
-            loadGymPromise(arrayOfCharacters) {
-                const charactersArray = this.characters || arrayOfCharacters;
-                return new Promise((resolve, reject) => {
-                    const arrayOfPromises = [];
-                    for (let i = 0; i < charactersArray.length; i++) {
-                        const characterName = charactersArray[i];
-                        const promise = Character.prototype.getCharacterPromise(characterName);
-                        arrayOfPromises[i] = promise;
+        // function returns a promise function. Inside the promise function, there is an xhr request sent to the Pokemon api.  
+        getCharacterPromise(characterName) {
+            const endpoint = characterName || this.name;
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${endpoint}/`);
+                xhr.send();
+                xhr.onload = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // store our data to the localStorage object, in case of errors later
+                        console.log('successful fetch to api');
+                        // if the call was successful, store the character to localStorage
+                        localStorage.setItem(characterName, xhr.responseText);
                     }
-                    Promise.all(arrayOfPromises)
-                        .then((arrayOfCharacterObjects) => {
-                            arrayOfCharacterObjects.forEach((characterObject) => {
-                                this.gym[characterObject.name] = characterObject;
-                            });
-                            resolve(this.gym);
-                        })
-                        .catch((err) => {
-                            reject(err);
-                        });
-                });
-            }
+                    resolve(JSON.parse(xhr.responseText));
+                };
+                xhr.onerror = function () {
+                    // instead of rejecting the error, we are resolving the data on the local storage.
+                    console.log('local storage in the error event: ', localStorage);
+                    resolve(JSON.parse(localStorage[characterName]));
+                    // reject(xhr.statusText);
+                };
+            });
         }
+        // This function takes the messy JSON objects that we get from the api and formats them the way we want them
+        // And passes the data to the constructor function, which finally creates the character object that we will use.
+        makeCharacterInstance(characterObject) {
+            const characterName = characterObject.name;
+            const reformattedStats = characterObject.stats.reduce((reformatted, stat) => {
+                reformatted[stat.stat.name] = stat.base_stat;
+                return reformatted;
+            }, {});
+            const reformattedAbilities = characterObject.abilities.reduce((arr, ability, index) => {
+                arr[index] = ability.ability.name;
+                return arr;
+            }, []);
+            const defaultPic = characterObject.sprites.front_default;
+            // pass all the reformated data to the constructor function
+            return new Character(characterName, defaultPic, reformattedStats, reformattedAbilities);
+        }
+    }
+
+    // The Player Class 
+    // The players will have characters stored in their "gym" - so the Player class has methods that fetch the characters.
+    class Player {
+        constructor(playerName, charactersArray) {
+            this.name = playerName;
+            // When you make a player instance, you enter an array of pokemon names:
+            this.characters = charactersArray;
+            // then, you call player.loadGymPromise()
+            // that will use the Character class' methods to fetch the characters, format the characters.
+            // and will then store them to this object: {characterName: {characterName: "name", "abilities": [], stats: []}} 
+            this.gym = {};
+        }
+        // made load gym a promise too, so that we can do things after the gyms are loaded:
+        loadGymPromise() {
+            const charactersArray = this.characters;
+            return new Promise((resolve, reject) => {
+                const arrayOfPromises = [];
+                for (let i = 0; i < charactersArray.length; i++) {
+                    const characterName = charactersArray[i];
+                    // use the Character class to fetch the data, reformat it, and return it as a promise:
+                    const promise = Character.prototype.getCharacterPromise(characterName);
+                    arrayOfPromises[i] = promise;
+                }
+                // makes sure all of the promises are resolved before storing them to the gym object:
+                Promise.all(arrayOfPromises)
+                    .then((arrayOfCharacterObjects) => {
+                        // store teh instances in 
+                        arrayOfCharacterObjects.forEach((characterObject) => {
+                            this.gym[characterObject.name] = characterObject;
+                        });
+                        resolve(this.gym);
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        }
+    }
+
+    // Create the two players, Chuck and Professor Doom. 
+    // Args = player's name, array of Pokemon characters' names:
+    const chuck = new Player('Chuck', ['dragonair', 'butterfree', 'charmeleon']);
+    const professorDoom = new Player('Professor Doom', ['weezing', 'oddish', 'gloom']);
+    console.log("Chuck:", chuck)
+    console.log("Professor Doom:", chuck)
+
+    // load each character's gym. Don't remember why I chained it, instead of Promise.all
+    chuck
+        .loadGymPromise() // loading Chuck's gym
+        .then(gym =>
+            // console.log('chucks gym:', gym);
+            professorDoom.loadGymPromise())
+        .then((gym) => {
+            // #NOTE:  right here, is where we need to make visual cues, that make the page active, because the Pokemon have all arrived and are in their trainers' gyms.
+            console.log("gyms are loaded:", chuck, professorDoom);
+        })
+        .catch((err) => {
+            console.log(`error caught in loadGymPromise chain: ${err}`);
+        });
+
+
+
+
+
+    function containPreviousCode() {
+
 
         // here we create our player instances, and pass an array of our pokemon names:
         const professorDoom = new Player('Professor Doom', ['weezing', 'oddish', 'gloom']);
