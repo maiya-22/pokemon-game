@@ -19,6 +19,7 @@ $color :#F7AF1D; */
 .game-frame {
   width: 100vw;
   height: 100vh; 
+  min-width: 1000px;
 }
 
 /* HEADER AND LOGO: */
@@ -96,13 +97,20 @@ $color :#F7AF1D; */
   grid-template-rows: 5rem [players-top] auto [players-bottom] 1fr;
 }
 
+.player-frame {
+  grid-row: players-top/players-bottom;
+  border: solid green 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .player-one-frame {
   grid-column: player-one-start/player-one-end;
-  grid-row: players-top/players-bottom;
+ 
 }
 .player-two-frame {
   grid-column: player-two-start/player-two-end;
-  grid-row: players-top/players-bottom;
+  
 }
 
 /* PLAYER NAME BOXES */
@@ -119,7 +127,6 @@ $color :#F7AF1D; */
   font-family: "Andale Mono", AndaleMono,monospace;
   color: #0081C6;
   text-align: center;
-  webkit-animation: glow 2s ease-in-out infinite;
   animation: glow 2s ease-in-out infinite;
 }
 
@@ -129,3 +136,125 @@ $color :#F7AF1D; */
 
  
    }}
+
+
+   /* SCORE BOXES */
+
+.scoreBox {
+  height: 75px;
+  width: 75px;
+  background-color: #F8F9FC;
+  border-radius: 25px;
+  border-style: ridge;
+  border-color: #0081C6;
+  border-width: 7px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 50px;
+  text-align: center;
+  color: #0081C6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+
+  /* POKEMON CIRCLES */
+  .pokemonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+  
+  #professorPokemon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; }
+  
+  #oddishCircle {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    margin-top: 0px;
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+    background-image: url("images/oddish.png"); }
+  
+  #gloomCircle {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    margin-top: 0px;
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+    background-image: url("images/gloom.png"); }
+  
+  #weezingCircle {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    margin-top: 0px;
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+    background-image: url("images/weezing.png"); }
+  
+  #chuckPokemon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; }
+  
+  #dragonairCircle {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    margin-top: 0px;
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+    background-image: url("images/dragonair.jpg"); }
+  
+  #butterfreeCircle {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    margin-top: 0px;
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+    background-image: url("images/butterfree.jpg"); }
+  
+  #charmeleonCircle {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    margin-top: 0px;
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+    background-image: url("images/charmeleon.jpg"); }
+  
