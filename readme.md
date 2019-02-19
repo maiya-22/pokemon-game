@@ -22,5 +22,5 @@
     - Node version on hard drive: v10.15.1
     - NPM version on hard drive: 6.4.1 
 
-⭐ Play here:  
+⭐ Play here: (In Progress. Not playable yet).
 https://vermillion-pokemon-challenge.herokuapp.com/
