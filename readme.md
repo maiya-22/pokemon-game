@@ -1,8 +1,8 @@
 ## Pokemon Game
 
-- Uses vanilla XMLHttpRequest object, JS Promises, and JS class syntax to fetch pokemon data from the Pokemon Api and use the data to render a game.
-
-- Animations rendered via custom CSS animations, Animate.CSS library, and custom Java Script.
+- code tools used:
+- vanilla XMLHttpRequest object, JS Promises, and JS class syntax to fetch pokemon data from Pokemon Api and use the data to render game.
+- Animations via plain CSS animations, Animate.CSS library, and vanilla Java Script.
 
 #### Project Status
 
@@ -22,6 +22,6 @@
     - Node version on hard drive: v10.15.1
     - NPM version on hard drive: 6.4.1 
 
-⭐ Play here: 
+## ⭐ Play here: 
 - https://vermillion-pokemon-game.herokuapp.com/
-(In Progress. Not playable yet).
+(In Progress).

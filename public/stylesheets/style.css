@@ -421,6 +421,7 @@ $color :#F7AF1D; */
 }
 
 .instructions {
+  display: absolute;
   font-size: 1rem;
   animation-delay: 4s;
   animation-name: bounceIn;
