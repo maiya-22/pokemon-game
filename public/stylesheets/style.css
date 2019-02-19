@@ -292,7 +292,7 @@ $color :#F7AF1D; */
 
   background-color: #DC3737;
   border-radius: 3px;
-  border: solid #B8860B 1px;
+  /* border: solid #B8860B 1px; */
   /* border-color: #F7AF1D; */
   animation-name: statFadeIn;
   animation-duration: 1000ms;
