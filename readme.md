@@ -23,5 +23,5 @@
     - NPM version on hard drive: 6.4.1 
 
 ⭐ Play here: 
-- https://vermillion-pokemon-challenge.herokuapp.com/
+- https://vermillion-pokemon-game.herokuapp.com/
 (In Progress. Not playable yet).
