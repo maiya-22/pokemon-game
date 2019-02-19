@@ -87,7 +87,7 @@ $color :#F7AF1D; */
 }
 
 
-/* PLAYERS FRAME */
+/* PLACE PLAYERS FRAME */
 
 .players-frame {
   background-color: blue;
@@ -104,3 +104,28 @@ $color :#F7AF1D; */
   grid-column: player-two-start/player-two-end;
   grid-row: players-top/players-bottom;
 }
+
+/* PLAYER NAME BOXES */
+
+.nameBox {
+  width: 150px;
+  height: 35px;
+  padding-top: 2px;
+  background-color: #fff;
+  border-style: ridge;
+  border-color: #F7AF1D;
+  border-radius: 25px;
+  border-width: 5px;
+  font-family: "Andale Mono", AndaleMono,monospace;
+  color: #0081C6;
+  text-align: center;
+  webkit-animation: glow 2s ease-in-out infinite;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  50% {
+    box-shadow: 0 0 60px #ffff33;
+
+ 
+   }}
