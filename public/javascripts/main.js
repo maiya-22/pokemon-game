@@ -119,129 +119,125 @@ window.onload = function (evt) {
         });
 
 
+    const spinningButtons = document.getElementsByClassName('spinningButton');
+    console.log("SPINNING BUTTON:", spinningButtons)
+    for (let i = 0; i < spinningButtons.length; i++) {
+        const button = spinningButtons[i];
+        button.addEventListener('click', () => {
+            // get the character name off of the button that was clicked:
+            const characterName = button.getAttribute('data');
+            // get the character object from local storage, if it exists:
+            let characterObject = JSON.parse(localStorage[characterName]);
+            let playerName;
+            // see which trainer owns this character:
+            if (chuck.characters.includes(characterName)) {
+                // console.log('this character belongs to CHUCK');
+                playerName = 'chuck';
+                // if the characterObject was not found in local storage, get it from the trainer's gym:
+                characterObject = characterObject || chuck.gym[characterName];
+            } else if (professorDoom.characters.includes(characterName)) {
+                // console.log('this character belongs to the professor');
+                playerName = 'professor';
+                // if the characterObject was not found in local storage, get it from the trainer's gym:
+                characterObject = characterObject || professorDoom.gym[characterName];
+            }
+            // format the character by creating an instance of Character:
+            const formattedCharacterObject = Character.prototype.makeCharacterInstance(characterObject);
+            renderCharacterToFloatingDisplay(formattedCharacterObject, playerName);
+            // THIS is where we randomly select one of the other Trainer's pokemon, to display it, as well.
+        });
+    }
 
 
 
-    function containPreviousCode() {
 
 
-        // here we create our player instances, and pass an array of our pokemon names:
+    // here we create our player instances, and pass an array of our pokemon names:
 
 
-        // After all of the above code has run, the page should now appear active.
-        // CODE FOR THEN MANIPULATING AND RENDERING TO THE DOM:
-        // select the spinning icons and add an 'click' event-listener to them:
-        const spinningButtons = document.getElementsByClassName('spinningButton');
-        for (let i = 0; i < spinningButtons.length; i++) {
-            const button = spinningButtons[i];
-            button.addEventListener('click', () => {
-                // get the character name off of the button that was clicked:
-                const characterName = button.getAttribute('data');
-                // get the character object from local storage, if it exists:
-                let characterObject = JSON.parse(localStorage[characterName]);
-                // console.log('characterObject in event listener: ', characterObject);
-                let playerName;
-                // see which trainer owns this character:
-                if (chuck.characters.includes(characterName)) {
-                    // console.log('this character belongs to CHUCK');
-                    playerName = 'chuck';
-                    // if the characterObject was not found in local storage, get it from the trainer's gym:
-                    characterObject = characterObject || chuck.gym[characterName];
-                } else if (professorDoom.characters.includes(characterName)) {
-                    // console.log('this character belongs to the professor');
-                    playerName = 'professor';
-                    // if the characterObject was not found in local storage, get it from the trainer's gym:
-                    characterObject = characterObject || professorDoom.gym[characterName];
-                }
-                // format the character by creating an instance of Character:
-                const formattedCharacterObject = Character.prototype.makeCharacterInstance(characterObject);
-                renderCharacterToFloatingDisplay(formattedCharacterObject, playerName);
-                // THIS is where we randomly select one of the other Trainer's pokemon, to display it, as well.
-            });
+
+    function renderCharacterToFloatingDisplay(characterObject, playerName) {
+        // selet the container elments froom the DOM:
+        let statsWrap;
+        let typeWrap;
+        if (playerName === 'professor') {
+            statsWrap = document.getElementById('professorStats');
+            typeWrap = document.getElementById('professorNames');
+        } else if (playerName === 'chuck') {
+            statsWrap = document.getElementById('chuckStats');
+            typeWrap = document.getElementById('chuckNames');
         }
 
-        function renderCharacterToFloatingDisplay(characterObject, playerName) {
-            // selet the container elments froom the DOM:
-            let statsWrap;
-            let typeWrap;
-            if (playerName === 'professor') {
-                statsWrap = document.getElementById('professorStats');
-                typeWrap = document.getElementById('professorNames');
-            } else if (playerName === 'chuck') {
-                statsWrap = document.getElementById('chuckStats');
-                typeWrap = document.getElementById('chuckNames');
-            }
+        //  randomly display a score to the score boards
+        setTimeout(() => {
+            const scoreBoxOne = document.getElementById('chuckScore');
+            const scoreBoxTwo = document.getElementById('professorScore');
+            const scoreOne = Math.floor(Math.random() * 100);
+            const scoreTwo = Math.floor(Math.random() * 100);
+            scoreBoxOne.innerHTML = scoreOne;
+            scoreBoxTwo.innerHTML = scoreTwo;
+        }, 500);
 
-            //  randomly display a score to the score boards
-            setTimeout(() => {
-                const scoreBoxOne = document.getElementById('chuckScore');
-                const scoreBoxTwo = document.getElementById('professorScore');
-                const scoreOne = Math.floor(Math.random() * 100);
-                const scoreTwo = Math.floor(Math.random() * 100);
-                scoreBoxOne.innerHTML = scoreOne;
-                scoreBoxTwo.innerHTML = scoreTwo;
-            }, 500);
+        // remove any displayed stats and display current stats
+        const characterName = characterObject.name;
+        removeStats();
+        removeType();
+        renderType(characterName);
+        renderStats(characterObject, playerName);
 
-            // remove any displayed stats and display current stats
-            const characterName = characterObject.name;
-            removeStats();
-            removeType();
-            renderType(characterName);
-            renderStats(characterObject, playerName);
+        function removeStats() {
+            statsWrap.innerHTML = '';
+            statsWrap.classList.remove('textAnimation');
+        }
 
-            function removeStats() {
-                statsWrap.innerHTML = '';
-                statsWrap.classList.remove('textAnimation');
-            }
+        function removeType() {
+            // typeWrap.classList.remove('textAnimation');
+            typeWrap.innerHTML = '';
+            console.log('typeWrap after remove textAnimation: ', typeWrap);
+        }
+        function renderType(characterName) {
+            typeWrap.innerHTML = characterName;
+            typeWrap.classList.add('textAnimation');
+            console.log('function addType: characterName: ', characterName);
+            console.log('function addType: typeWrap: ', typeWrap);
+        }
 
-            function removeType() {
-                // typeWrap.classList.remove('textAnimation');
-                typeWrap.innerHTML = '';
-                console.log('typeWrap after remove textAnimation: ', typeWrap);
-            }
-            function renderType(characterName) {
-                typeWrap.innerHTML = characterName;
-                typeWrap.classList.add('textAnimation');
-                console.log('function addType: characterName: ', characterName);
-                console.log('function addType: typeWrap: ', typeWrap);
-            }
-
-            function renderStats() {
-                const { stats } = characterObject;
-                const statNames = Object.keys(stats);
-                statNames.forEach((stat) => {
-                    // make a statWrap for each stat and add everything to it:
-                    const statWrap = document.createElement('div');
-                    statWrap.classList.add('statWrap');
-                    statWrap.setAttribute('id', 'statTitle');
-                    const statLabel = document.createElement('div');
-                    statLabel.setAttribute('id', 'statLabel');
-                    statLabel.innerHTML = `${stat}:  `;
-                    statWrap.appendChild(statLabel);
-                    const statBarWrap = document.createElement('div');
-                    statBarWrap.classList.add('statBarWrap');
-                    // add boxes inside of the statBarWrap:
-                    for (let i = 0; i < stats[stat]; i++) {
-                        setTimeout(() => {
-                            const statBox = document.createElement('div');
-                            statBox.classList.add('statBox');
-                            statBarWrap.appendChild(statBox);
-                            // if the current box-number is at the actual stat value, then add the statNumber here:
-                            if (i === stats[stat] - 1) {
-                                setTimeout(() => {
-                                    const statNumberBox = document.createElement('div');
-                                    statNumberBox.classList.add('statNumberBox');
-                                    statNumberBox.innerHTML = stats[stat];
-                                    statBarWrap.appendChild(statNumberBox);
-                                }, 20);
-                            }
-                        }, i * 20);
-                        statWrap.appendChild(statBarWrap);
-                    }
-                    // end of for loop:
-                    statsWrap.appendChild(statWrap);
-                }); // end of forEach loop
-            }
+        function renderStats() {
+            const { stats } = characterObject;
+            const statNames = Object.keys(stats);
+            statNames.forEach((stat) => {
+                // make a statWrap for each stat and add everything to it:
+                const statWrap = document.createElement('div');
+                statWrap.classList.add('statWrap');
+                statWrap.setAttribute('id', 'statTitle');
+                const statLabel = document.createElement('div');
+                statLabel.setAttribute('id', 'statLabel');
+                statLabel.innerHTML = `${stat}:  `;
+                statWrap.appendChild(statLabel);
+                const statBarWrap = document.createElement('div');
+                statBarWrap.classList.add('statBarWrap');
+                // add boxes inside of the statBarWrap:
+                for (let i = 0; i < stats[stat]; i++) {
+                    setTimeout(() => {
+                        const statBox = document.createElement('div');
+                        statBox.classList.add('statBox');
+                        statBarWrap.appendChild(statBox);
+                        // if the current box-number is at the actual stat value, then add the statNumber here:
+                        if (i === stats[stat] - 1) {
+                            setTimeout(() => {
+                                const statNumberBox = document.createElement('div');
+                                statNumberBox.classList.add('statNumberBox');
+                                statNumberBox.innerHTML = stats[stat];
+                                statBarWrap.appendChild(statNumberBox);
+                            }, 20);
+                        }
+                    }, i * 20);
+                    statWrap.appendChild(statBarWrap);
+                }
+                // end of for loop:
+                statsWrap.appendChild(statWrap);
+            }); // end of forEach loop
         }
     }
+
 };
