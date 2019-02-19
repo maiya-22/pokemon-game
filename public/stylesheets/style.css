@@ -282,7 +282,7 @@ $color :#F7AF1D; */
   background-color: #DC3737;
   border-radius: 3px;
   border: solid #B8860B 1px;
-
+  /* border-color: #F7AF1D; */
   animation-name: statFadeIn;
   animation-duration: 1000ms;
   animation-direction: forwards;
@@ -290,6 +290,7 @@ $color :#F7AF1D; */
   animation-delay: 500ms;
   /*  */
 }
+
 
 .statNumberBox {
   transform: translate(-30px, -40px);
@@ -312,6 +313,7 @@ $color :#F7AF1D; */
     /* outer white */ -10px 0 20px #ffff33,
     /* outer left magenta */ 10px 0 20px #ffff33;
 }
+
 
 #statLabel {
   font-family: "Andale Mono", AndaleMono, monospace;
@@ -385,6 +387,7 @@ $color :#F7AF1D; */
   border-width: 10px;
   border-style: ridge;
   border-color: blue;
+  border-color: #B8860B;
   background-color: white;
   -webkit-animation: glow 2s ease-in-out infinite;
   animation: glow 2s ease-in-out infinite;
