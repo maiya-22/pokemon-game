@@ -21,35 +21,38 @@ window.onload = function (evt) {
                 xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${endpoint}/`);
                 xhr.send();
                 xhr.onload = function () {
+                    // before setting to localStorage, just making sure was a successful response. Not sure if need to do this:
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         // store our data to the localStorage object, in case of errors later
                         console.log('successful fetch to api');
-                        // if the call was successful, store the character to localStorage
+                        // if the call was successful, store the character to localStorage in case api goes down/ too many requests
                         localStorage.setItem(characterName, xhr.responseText);
                     }
                     resolve(JSON.parse(xhr.responseText));
                 };
                 xhr.onerror = function () {
-                    // instead of rejecting the error, we are resolving the data on the local storage.
-                    console.log('local storage in the error event: ', localStorage);
-                    resolve(JSON.parse(localStorage[characterName]));
-                    // reject(xhr.statusText);
+                    // if you get an error, first check to see if character is in localStorage and try to resolve with that data before sending error.
+                    if (localStorage[characterName]) {
+                        resolve(JSON.parse(localStorage[characterName]));
+                    } else {
+                        reject(xhr.statusText);
+                    }
                 };
             });
         }
         // This function takes the messy JSON objects that we get from the api and formats them the way we want them
         // And passes the data to the constructor function, which finally creates the character object that we will use.
-        makeCharacterInstance(characterObject) {
-            const characterName = characterObject.name;
-            const reformattedStats = characterObject.stats.reduce((reformatted, stat) => {
+        makeCharacterInstance(apiCharacterObject) {
+            const characterName = apiCharacterObject.name;
+            const reformattedStats = apiCharacterObject.stats.reduce((reformatted, stat) => {
                 reformatted[stat.stat.name] = stat.base_stat;
                 return reformatted;
             }, {});
-            const reformattedAbilities = characterObject.abilities.reduce((arr, ability, index) => {
+            const reformattedAbilities = apiCharacterObject.abilities.reduce((arr, ability, index) => {
                 arr[index] = ability.ability.name;
                 return arr;
             }, []);
-            const defaultPic = characterObject.sprites.front_default;
+            const defaultPic = apiCharacterObject.sprites.front_default;
             // pass all the reformated data to the constructor function
             return new Character(characterName, defaultPic, reformattedStats, reformattedAbilities);
         }
@@ -123,21 +126,7 @@ window.onload = function (evt) {
 
 
         // here we create our player instances, and pass an array of our pokemon names:
-        const professorDoom = new Player('Professor Doom', ['weezing', 'oddish', 'gloom']);
-        const chuck = new Player('Chuck', ['dragonair', 'butterfree', 'charmeleon']);
-        // call the .loadGymPromise() function on our characters.  This dynamically fetches all their characters from the api
-        // promise chain to load both player's gym:
-        chuck
-            .loadGymPromise() // loading Chuck's gym
-            .then(gym =>
-                // console.log('chucks gym:', gym);
-                professorDoom.loadGymPromise())
-            .then((gym) => {
-                // #NOTE:  right here, is where we need to make visual cues, that make the page active, because the Pokemon have all arrived and are in their trainers' gyms.
-            })
-            .catch((err) => {
-                console.log(`error caught in loadGymPromise chain: ${err}`);
-            });
+
 
         // After all of the above code has run, the page should now appear active.
         // CODE FOR THEN MANIPULATING AND RENDERING TO THE DOM:

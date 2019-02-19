@@ -7,3 +7,10 @@
 
 - Refactoring into Express with Sequelize.
 
+## Set up:
+
+- Node version on hard drive: v10.15.1
+- NPM version on hard drive: 6.4.1
+    - run these commands in terminal:
+- npm install
+- npm start
