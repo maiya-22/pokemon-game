@@ -1,18 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Vermillion Gym</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <title>Vermillion Gym</title>
 </head>
 
 <body>
-  <h1>
-    <%= title %>
-  </h1>
-  <p>Welcome to
-    <%= title %>
-  </p>
+  <!-- Create header with Pokemon logo and css animation for page name -->
+  <div class="container">
+    <div class="row">
+      <div id="pokeLogo">
+        <img src="images/pokemon-logo-vector.png" alt="Pokemon Logo">
+      </div>
+      <div id="vermillionHeader" class="shadow">
+        Vermillion Gym
+        <div id="test">animated?</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="flexContainer">
+        <div class="nameBox" class="pulse" id="grimBox">
+          Professor Grim
+        </div>
+        <div class="nameBox" id="chuckBox">
+          Chuck
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Creating score boxes -->
+    <div class="row">
+      <div class="scoreContainer">
+        <div class="scoreBoxOne" id="professorScore">
+          0
+        </div>
+
+        <div class="scoreBoxTwo" id="chuckScore">
+          0
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="pokemonContainer">
+        <div id="professorPokemon">
+          <div id="oddishCircle" class="spinningButton" data="oddish"></div>
+          <div id="gloomCircle" class="spinningButton" data="gloom"></div>
+          <div id="weezingCircle" class="spinningButton" data="weezing"></div>
+        </div>
+
+        <div id="chuckPokemon">
+          <div id="dragonairCircle" class="spinningButton" data="dragonair"></div>
+          <div id="butterfreeCircle" class="spinningButton" data="butterfree"></div>
+          <div id="charmeleonCircle" class="spinningButton" data="charmeleon"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="pokemonNames">
+        <div id="professorNames">
+          <!-- <p class="names">Placeholder</p> -->
+        </div>
+        <div id="chuckNames">
+          <!-- <p class="names">Placeholder</p> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="stats">
+        <div id="professorStats" class="statsBox"></div>
+        <div id="chuckStats" class="statsBox"></div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="gifs">
+        <div id="professorGifs"></div>
+        <div id="chuckGifs"></div>
+      </div>
+
+
+    </div>
+
+
+
+
+
+
+  </div>
+
+  <script src="main.js"></script>
 </body>
 
 </html>
