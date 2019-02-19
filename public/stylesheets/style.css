@@ -183,6 +183,7 @@ $color :#F7AF1D; */
     border-radius: 50%;
     background-size: cover;
     -webkit-animation: rotation 2s infinite linear;
+    animation-delay: 1s;
     background-image: url("/images/oddish.png"); }
   
   #gloomCircle {
@@ -197,6 +198,7 @@ $color :#F7AF1D; */
     border-radius: 50%;
     background-size: cover;
     -webkit-animation: rotation 2s infinite linear;
+    animation-delay: 2s;
     background-image: url("/images/gloom.png"); }
   
   #weezingCircle {
@@ -211,7 +213,9 @@ $color :#F7AF1D; */
     border-radius: 50%;
     background-size: cover;
     -webkit-animation: rotation 2s infinite linear;
-    background-image: url("/images/weezing.png"); }
+    animation-delay: 1s;
+    background-image: url("/images/weezing.png");
+   }
   
   #chuckPokemon {
     display: flex;
@@ -229,7 +233,10 @@ $color :#F7AF1D; */
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    background-image: url("/images/dragonair.jpg"); }
+    background-image: url("/images/dragonair.jpg"); 
+  
+    -webkit-animation: rotation 2s infinite linear;
+    animation-delay: 3s;}
   
   #butterfreeCircle {
     width: 100px;
@@ -242,7 +249,9 @@ $color :#F7AF1D; */
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    background-image: url("/images/butterfree.jpg"); }
+    background-image: url("/images/butterfree.jpg");
+    -webkit-animation: rotation 2s infinite linear;
+    animation-delay: 1s; }
   
   #charmeleonCircle {
     width: 100px;
@@ -255,7 +264,9 @@ $color :#F7AF1D; */
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    background-image: url("/images/charmeleon.jpg"); }
+    background-image: url("/images/charmeleon.jpg"); 
+    -webkit-animation: rotation 2s infinite linear;
+    animation-delay: 2s;}
   
 
 .statWrap {
@@ -415,3 +426,10 @@ $color :#F7AF1D; */
   animation-name: bounceIn;
   animation-duration: 1s;
 }
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(359deg); } }
+
