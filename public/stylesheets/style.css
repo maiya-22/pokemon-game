@@ -397,4 +397,11 @@ $color :#F7AF1D; */
   position: fixed;
   left: calc(50vw - 25vw);
   top: calc(40vh);
+  font-size: 3rem;
+  animation-name: bounceIn;
+  animation-duration: 1s;
+}
+
+@keyframes announceWinner {
+
 }
