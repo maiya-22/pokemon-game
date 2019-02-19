@@ -8,7 +8,7 @@
 
 - Re-initializing repository, in order to refactor from serverless html to express server.
 
-#### by:
+#### By:
 
 - collaboration between Maiya and Jamie Grafton: https://github.com/jjgrafton
 
@@ -22,5 +22,5 @@
     - Node version on hard drive: v10.15.1
     - NPM version on hard drive: 6.4.1 
 
-- Play here:  
+- ⭐ Play here:  
 https://vermillion-pokemon-challenge.herokuapp.com/
