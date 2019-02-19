@@ -91,7 +91,6 @@ $color :#F7AF1D; */
 /* PLACE PLAYERS FRAME */
 
 .players-frame {
-  background-color: blue;
   display: grid;
   grid-template-columns: 10vw [player-one-start]auto [player-one-end] 1fr [player-two-start]auto [player-two-end]10vw;
   grid-template-rows: 5rem [players-top] auto [players-bottom] 1fr;
@@ -99,10 +98,13 @@ $color :#F7AF1D; */
 
 .player-frame {
   grid-row: players-top/players-bottom;
-  border: solid green 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.player-frame  > * {
+  margin-top: 1rem;
 }
 .player-one-frame {
   grid-column: player-one-start/player-one-end;
@@ -227,7 +229,6 @@ $color :#F7AF1D; */
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    -webkit-animation: rotation 2s infinite linear;
     background-image: url("images/dragonair.jpg"); }
   
   #butterfreeCircle {
@@ -241,7 +242,6 @@ $color :#F7AF1D; */
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    -webkit-animation: rotation 2s infinite linear;
     background-image: url("images/butterfree.jpg"); }
   
   #charmeleonCircle {
@@ -255,6 +255,146 @@ $color :#F7AF1D; */
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    -webkit-animation: rotation 2s infinite linear;
     background-image: url("images/charmeleon.jpg"); }
   
+
+.statWrap {
+  margin-top: 0rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100px 10fr 0.5rem;
+}
+
+.statBarWrap {
+  width: 100%;
+  height: 15px;
+  display: grid;
+  grid-template-columns: repeat(100, 1fr);
+  margin-bottom: 1rem;
+}
+
+.statBox {
+
+  background-color: #dc3737;
+  border-radius: 3px;
+  /* border: solid #b8860b 1px; */
+
+  background-color: #DC3737;
+  border-radius: 3px;
+  border: solid #B8860B 1px;
+
+  animation-name: statFadeIn;
+  animation-duration: 1000ms;
+  animation-direction: forwards;
+  animation-fill-mode: both;
+  animation-delay: 500ms;
+  /*  */
+}
+
+.statNumberBox {
+  transform: translate(-30px, -40px);
+  color: #0081c6;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 1rem;
+  height: 1rem;
+  font-weight: bold;
+  transform: scale(300%);
+  animation-name: rubberBand;
+  animation-duration: 1000ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  box-shadow: 0 0 50px #ffff33, /* inner white */ 20px 0 80px #ffff33,
+    /* inner left magenta short */ -20px 0 20px #ffff33,
+    /* inner right cyan short */ 20px 0 20px #ffff33,
+    /* inner left magenta broad */ -20px 0 20px #ffff33,
+    /* inner right cyan broad */ 0 0 20px #ffff33,
+    /* outer white */ -10px 0 20px #ffff33,
+    /* outer left magenta */ 10px 0 20px #ffff33;
+}
+
+#statLabel {
+  font-family: "Andale Mono", AndaleMono, monospace;
+  font-size: 15px;
+  margin-left: 15px;
+  color: #0081c6;
+  z-index: 2;
+  padding: 0px;
+  border-radius: 5px;
+}
+
+@keyframes statFadeIn {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceInRight {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(3000px, 0, 0);
+    transform: translate3d(3000px, 0, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(-25px, 0, 0);
+    transform: translate3d(-25px, 0, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.statsBox {
+  height: 250px;
+  width: 400px;
+  border-radius: 25px;
+  border-width: 10px;
+  border-style: ridge;
+  border-color: blue;
+  background-color: white;
+  -webkit-animation: glow 2s ease-in-out infinite;
+  animation: glow 2s ease-in-out infinite;
+}
+
+.announce-winner {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: calc(50vw - 25vw);
+  top: calc(40vh);
+}
