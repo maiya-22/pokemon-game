@@ -408,3 +408,10 @@ $color :#F7AF1D; */
 @keyframes announceWinner {
 
 }
+
+.instructions {
+  font-size: 1rem;
+  animation-delay: 4s;
+  animation-name: bounceIn;
+  animation-duration: 1s;
+}
