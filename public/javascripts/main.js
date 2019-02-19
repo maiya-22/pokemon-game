@@ -2,12 +2,12 @@
 // The comments above are just to remove error messages from my VS Code
 
 window.onload = function (evt) {
-    console.log("js loaded");
+    // console.log("js loaded");
 
     // The Character class has methods that go to the Pokemon api and fetch a Pokemon character JSON, and then reformat
     // the JSON into an object that we can then use in our JS.
     class Character {
-        constructor(characterName, pic, gif, stats, abilities) {
+        constructor(characterName, pic, stats, abilities) {
             this.name = characterName;
             this.pic = pic;
             this.stats = stats;
@@ -24,7 +24,7 @@ window.onload = function (evt) {
                     // before setting to localStorage, just making sure was a successful response. Not sure if need to do this:
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         // store our data to the localStorage object, in case of errors later
-                        console.log('successful fetch to api');
+                        // console.log('successful fetch to api');
                         // if the call was successful, store the character to localStorage in case api goes down/ too many requests
                         localStorage.setItem(characterName, xhr.responseText);
                     }
@@ -101,8 +101,8 @@ window.onload = function (evt) {
     // Args = player's name, array of Pokemon characters' names:
     const chuck = new Player('Chuck', ['dragonair', 'butterfree', 'charmeleon']);
     const professorDoom = new Player('Professor Doom', ['weezing', 'oddish', 'gloom']);
-    console.log("Chuck:", chuck)
-    console.log("Professor Doom:", chuck)
+    // console.log("Chuck:", chuck)
+    // console.log("Professor Doom:", chuck)
 
     // load each character's gym. Don't remember why I chained it, instead of Promise.all
     chuck
@@ -112,22 +112,27 @@ window.onload = function (evt) {
             professorDoom.loadGymPromise())
         .then((gym) => {
             // #NOTE:  right here, is where we need to make visual cues, that make the page active, because the Pokemon have all arrived and are in their trainers' gyms.
-            console.log("gyms are loaded:", chuck, professorDoom);
+            // console.log("gyms are loaded:", chuck, professorDoom);
         })
         .catch((err) => {
             console.log(`error caught in loadGymPromise chain: ${err}`);
         });
 
 
+    // working:
     const spinningButtons = document.getElementsByClassName('spinningButton');
-    console.log("SPINNING BUTTON:", spinningButtons)
+
     for (let i = 0; i < spinningButtons.length; i++) {
         const button = spinningButtons[i];
+
         button.addEventListener('click', () => {
             // get the character name off of the button that was clicked:
             const characterName = button.getAttribute('data');
+
             // get the character object from local storage, if it exists:
             let characterObject = JSON.parse(localStorage[characterName]);
+
+
             let playerName;
             // see which trainer owns this character:
             if (chuck.characters.includes(characterName)) {
@@ -141,8 +146,11 @@ window.onload = function (evt) {
                 // if the characterObject was not found in local storage, get it from the trainer's gym:
                 characterObject = characterObject || professorDoom.gym[characterName];
             }
+
+
             // format the character by creating an instance of Character:
             const formattedCharacterObject = Character.prototype.makeCharacterInstance(characterObject);
+
             renderCharacterToFloatingDisplay(formattedCharacterObject, playerName);
             // THIS is where we randomly select one of the other Trainer's pokemon, to display it, as well.
         });
@@ -152,14 +160,13 @@ window.onload = function (evt) {
 
 
 
-    // here we create our player instances, and pass an array of our pokemon names:
-
-
-
     function renderCharacterToFloatingDisplay(characterObject, playerName) {
+
+        // console.log("player name:", playerName)
         // selet the container elments froom the DOM:
         let statsWrap;
-        let typeWrap;
+        let typeWrap; //will wrap the type animation
+
         if (playerName === 'professor') {
             statsWrap = document.getElementById('professorStats');
             typeWrap = document.getElementById('professorNames');
@@ -168,15 +175,7 @@ window.onload = function (evt) {
             typeWrap = document.getElementById('chuckNames');
         }
 
-        //  randomly display a score to the score boards
-        setTimeout(() => {
-            const scoreBoxOne = document.getElementById('chuckScore');
-            const scoreBoxTwo = document.getElementById('professorScore');
-            const scoreOne = Math.floor(Math.random() * 100);
-            const scoreTwo = Math.floor(Math.random() * 100);
-            scoreBoxOne.innerHTML = scoreOne;
-            scoreBoxTwo.innerHTML = scoreTwo;
-        }, 500);
+
 
         // remove any displayed stats and display current stats
         const characterName = characterObject.name;
@@ -185,25 +184,29 @@ window.onload = function (evt) {
         renderType(characterName);
         renderStats(characterObject, playerName);
 
+
         function removeStats() {
             statsWrap.innerHTML = '';
-            statsWrap.classList.remove('textAnimation');
+
         }
 
         function removeType() {
-            // typeWrap.classList.remove('textAnimation');
+            typeWrap.classList.remove('textAnimation');
             typeWrap.innerHTML = '';
-            console.log('typeWrap after remove textAnimation: ', typeWrap);
+            // console.log('typeWrap after remove textAnimation: ', typeWrap);
         }
         function renderType(characterName) {
+
             typeWrap.innerHTML = characterName;
+            // animation not working:
             typeWrap.classList.add('textAnimation');
-            console.log('function addType: characterName: ', characterName);
-            console.log('function addType: typeWrap: ', typeWrap);
+
         }
 
         function renderStats() {
+
             const { stats } = characterObject;
+            console.log("characterObject:", characterObject);
             const statNames = Object.keys(stats);
             statNames.forEach((stat) => {
                 // make a statWrap for each stat and add everything to it:
