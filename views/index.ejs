@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" data-auto-replace-svg="nest"></script>
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <title>Vermillion Gym</title>
@@ -54,11 +59,22 @@
           <div class="stats">
             <div id="professorStats" class="statsBox"></div>
           </div>
+          <div class="play-game">
+            <div id="play-game-button">
+              <div class="font-animation">
+                go
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="play-game">
-        <button id="play-game-button">play</button>
-      </div>
+      <!-- <div class="play-game">
+        <div id="play-game-button">
+          <div class="font-animation">
+            go
+          </div>
+        </div>
+      </div> -->
       <div class="player-two-frame player-frame">
         <div class="nameBox" id="chuckBox">
           Chuck
@@ -90,13 +106,17 @@
           <div class="stats">
             <div id="chuckStats" class="statsBox"></div>
           </div>
+          <div class="play-game">
+            <div id="play-game-button">
+              <div class="font-animation">
+                go
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-
   </div>
-
   </div>
 
   <script src="/javascripts/main.js"></script>
