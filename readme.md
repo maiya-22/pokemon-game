@@ -27,4 +27,4 @@
 (In Progress).
 
 
-![Alt text](public/readme_images/pokemon.png?raw=true "Pokemon Game Image")
+![Pokemon Game](https://github.com/maiya-22/pokemon-game/blob/master/public/readme_images/pokemin-game.png)
