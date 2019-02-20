@@ -92,7 +92,7 @@ $color :#F7AF1D; */
 
 .players-frame {
   display: grid;
-  grid-template-columns: 10vw [player-one-start]auto [player-one-end] 1fr [player-two-start]auto [player-two-end]10vw;
+  grid-template-columns: 10vw [player-one-start]auto [player-one-end] auto [player-two-start]auto [player-two-end]10vw;
   grid-template-rows: 5rem [players-top] auto [players-bottom] 1fr;
 }
 
@@ -114,6 +114,23 @@ $color :#F7AF1D; */
   grid-column: player-two-start/player-two-end;
   
 }
+
+.play-game {
+  grid-row-start: players-top;
+  grid-column-start: player-one-end;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 1rem;
+ 
+}
+#play-game-button {
+  animation-name: rubberBand;
+  animation-duration: 1s;
+  animation-delay: 4s;
+}
+
 
 /* PLAYER NAME BOXES */
 
@@ -144,7 +161,7 @@ $color :#F7AF1D; */
 
 .scoreBox {
   height: 75px;
-  width: 75px;
+  width: 150px;
   background-color: #F8F9FC;
   border-radius: 25px;
   border-style: ridge;
@@ -402,18 +419,6 @@ $color :#F7AF1D; */
   background-color: white;
   -webkit-animation: glow 2s ease-in-out infinite;
   animation: glow 2s ease-in-out infinite;
-}
-
-.announce-winner {
-  width: 50vw;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  left: calc(50vw - 25vw);
-  top: calc(40vh);
-  font-size: 3rem;
-  animation-name: bounceIn;
-  animation-duration: 1s;
 }
 
 @keyframes announceWinner {

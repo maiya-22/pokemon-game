@@ -101,6 +101,7 @@ window.onload = function (evt) {
     // Args = player's name, array of Pokemon characters' names:
     const chuck = new Player('Chuck', ['dragonair', 'butterfree', 'charmeleon']);
     const professorDoom = new Player('Professor Doom', ['weezing', 'oddish', 'gloom']);
+
     // console.log("Chuck:", chuck)
     // console.log("Professor Doom:", chuck)
 
@@ -132,7 +133,6 @@ window.onload = function (evt) {
             // get the character object from local storage, if it exists:
             let characterObject = JSON.parse(localStorage[characterName]);
 
-
             let playerName;
             // see which trainer owns this character:
             if (chuck.characters.includes(characterName)) {
@@ -146,8 +146,6 @@ window.onload = function (evt) {
                 // if the characterObject was not found in local storage, get it from the trainer's gym:
                 characterObject = characterObject || professorDoom.gym[characterName];
             }
-
-
             // format the character by creating an instance of Character:
             const formattedCharacterObject = Character.prototype.makeCharacterInstance(characterObject);
 
@@ -203,10 +201,14 @@ window.onload = function (evt) {
 
         }
 
+        let grimScoreBox = document.getElementById("professorScore")
+        let chuckScoreBox = document.getElementById("chuckScore")
+        let grimScore = 0;
+        let chuckScore = 0;
         function renderStats() {
 
             const { stats } = characterObject;
-            console.log("characterObject:", characterObject);
+            // console.log("characterObject:", characterObject);
             const statNames = Object.keys(stats);
             statNames.forEach((stat) => {
                 // make a statWrap for each stat and add everything to it:
@@ -220,7 +222,10 @@ window.onload = function (evt) {
                 const statBarWrap = document.createElement('div');
                 statBarWrap.classList.add('statBarWrap');
                 // add boxes inside of the statBarWrap:
+
                 for (let i = 0; i < stats[stat]; i++) {
+                    console.log("playerNAME", playerName)
+
                     setTimeout(() => {
                         const statBox = document.createElement('div');
                         statBox.classList.add('statBox');
@@ -232,7 +237,17 @@ window.onload = function (evt) {
                                 statNumberBox.classList.add('statNumberBox');
                                 statNumberBox.innerHTML = stats[stat];
                                 statBarWrap.appendChild(statNumberBox);
+                                if (playerName === 'professor') {
+                                    grimScore += stats[stat]
+                                    grimScoreBox.innerHTML = grimScore;
+                                } else if (playerName === 'chuck') {
+                                    chuckScore += stats[stat]
+                                    chuckScoreBox.innerHTML = chuckScore;
+                                }
                             }, 20);
+                            // and update the score box:
+
+
                         }
                     }, i * 20);
                     statWrap.appendChild(statBarWrap);
@@ -242,5 +257,71 @@ window.onload = function (evt) {
             }); // end of forEach loop
         }
     }
+
+    // do something to only make the button click-able after the pokemon have been fetched.
+    // for now, just using setTimeout
+    // play a random game:
+    // choose a random character from each trainer
+    // trigger the click event on that character
+    // tally their score
+    // display the score and say who wins:
+    // attatch this function to the play button
+    function playRandomGame(playerOne, playerTwo) {
+        // using global characters for now. Need to refactor:
+        playerOne = chuck;
+        playerTwo = professorDoom;
+        const scoreBoxOne = document.getElementById('chuckScore');
+        const scoreBoxTwo = document.getElementById('professorScore');
+        scoreBoxOne.innerHTML = "0";
+        scoreBoxTwo.innerHTML = "0"
+        const selectRandomCharacter = (player) => {
+            return player.characters[Math.floor(Math.random() * player.characters.length)]
+        }
+
+        let characterOne = selectRandomCharacter(playerOne);
+        let characterTwo = selectRandomCharacter(playerTwo);
+        let characterOneButton = document.querySelector(`[data=${characterOne}]`);
+        let characterTwoButton = document.querySelector(`[data=${characterTwo}]`);
+        characterOneButton.click()
+        characterTwoButton.click()
+
+        let characterOneScore = playerOne.gym[characterOne].stats.reduce((total, stat) => {
+            return total + stat.base_stat;
+        }, 0);
+        let characterTwoScore = playerTwo.gym[characterTwo].stats.reduce((total, stat) => {
+            return total + stat.base_stat;
+        }, 0);
+
+        function animateScore(id, start, end, duration) {
+            var range = end - start;
+            var current = start;
+            var increment = end > start ? 1 : -1;
+            var stepTime = Math.abs(Math.floor(duration / range));
+            var obj = document.getElementById(id);
+            var timer = setInterval(function () {
+                current += increment;
+                obj.innerHTML = current;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        // setTimeout(() => {
+        //     animateScore("professorScore", 0, characterTwoScore, 100);
+        //     animateScore("chuckScore", 0, characterOneScore, 100);
+        // }, 1500)
+
+        const winnerTextAnnouncement = (characterOneScore, characterTwoScore) => {
+            if (characterOneScore === characterTwoScore) return "IT's a tie!"
+            let winner = characterOneScore > characterTwoScore ? "Chuck" : "Professor Grim";
+            return `The winner is ${winner}`;
+        }
+        console.log(winnerTextAnnouncement(characterOneScore, characterTwoScore))
+
+    }
+
+    let playGameButton = document.getElementById('play-game-button')
+    playGameButton.addEventListener('click', playRandomGame);
 
 };
