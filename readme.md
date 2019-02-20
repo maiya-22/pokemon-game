@@ -12,7 +12,7 @@
 
 - collaboration between Maiya and Jamie Grafton: https://github.com/jjgrafton
 
-#### Set up after cloning repo:
+#### Set Up After Cloning Repo:
 
 - run these commands in terminal:
     - npm install
