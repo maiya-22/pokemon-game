@@ -27,4 +27,4 @@
 (In Progress).
 
 
-![Alt text](readme_images/pokemon.png?raw=true "Pokemon Game Image")
+![Alt text](public/readme_images/pokemon.png?raw=true "Pokemon Game Image")
