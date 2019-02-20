@@ -222,7 +222,7 @@ $color :#F7AF1D; */
     border-radius: 50%;
     background-size: cover;
     -webkit-animation: rotation 2s infinite linear;
-    animation-delay: 1s;
+    animation-delay: 3s;
     background-image: url("/images/oddish.png"); }
   
   #gloomCircle {
@@ -237,7 +237,7 @@ $color :#F7AF1D; */
     border-radius: 50%;
     background-size: cover;
     -webkit-animation: rotation 2s infinite linear;
-    animation-delay: 2s;
+    animation-delay: 3.5s;
     background-image: url("/images/gloom.png"); }
   
   #weezingCircle {
@@ -252,7 +252,7 @@ $color :#F7AF1D; */
     border-radius: 50%;
     background-size: cover;
     -webkit-animation: rotation 2s infinite linear;
-    animation-delay: 1s;
+    animation-delay: 4s;
     background-image: url("/images/weezing.png");
    }
   
@@ -275,7 +275,7 @@ $color :#F7AF1D; */
     background-image: url("/images/dragonair.jpg"); 
   
     -webkit-animation: rotation 2s infinite linear;
-    animation-delay: 3s;}
+    animation-delay: 5s;}
   
   #butterfreeCircle {
     width: 100px;
@@ -290,7 +290,7 @@ $color :#F7AF1D; */
     background-size: cover;
     background-image: url("/images/butterfree.jpg");
     -webkit-animation: rotation 2s infinite linear;
-    animation-delay: 1s; }
+    animation-delay: 5.5s; }
   
   #charmeleonCircle {
     width: 100px;
@@ -305,7 +305,7 @@ $color :#F7AF1D; */
     background-size: cover;
     background-image: url("/images/charmeleon.jpg"); 
     -webkit-animation: rotation 2s infinite linear;
-    animation-delay: 2s;}
+    animation-delay: 3.5s;}
   
 
 .statWrap {
@@ -470,7 +470,7 @@ $color :#F7AF1D; */
     .character-text-box {
       position: relative;
       height: 2rem;
-      color: pink;
+      color: #F7AF1D;
       font-size: 1;
       font-size: 2rem;
       /* border: solid orange 2px; */
@@ -483,7 +483,7 @@ $color :#F7AF1D; */
       /* border: solid green 2px; */
       height: 2rem;
       animation-name: bounceIn;
-      animation-duration: 1s;
+      animation-duration: 2s;
       color: #F7AF1D;
       text-shadow: 3px 3px 5px #B8860B;
 

@@ -204,7 +204,10 @@ window.onload = function (evt) {
 
                 typeWrap.innerHTML = characterName;
                 // animation not working:
-                typeWrap.classList.add('textAnimation');
+                setTimeout(() => {
+                    typeWrap.classList.add('textAnimation');
+                }, 10)
+
 
             }
 
@@ -279,6 +282,16 @@ window.onload = function (evt) {
             playerTwo = professorDoom;
             const scoreBoxOne = document.getElementById('chuckScore');
             const scoreBoxTwo = document.getElementById('professorScore');
+
+
+            // for animating name appearance:
+            let chucksNames = document.getElementById('chuckNames')
+            let professorNames = document.getElementById('professorNames')
+            chucksNames.className = ""
+            professorNames.className = ""
+
+
+
             scoreBoxOne.innerHTML = "0";
             scoreBoxTwo.innerHTML = "0"
             const selectRandomCharacter = (player) => {
@@ -292,6 +305,7 @@ window.onload = function (evt) {
             characterOneButton.click()
             characterTwoButton.click()
 
+            // put these on the class?
             let characterOneScore = playerOne.gym[characterOne].stats.reduce((total, stat) => {
                 return total + stat.base_stat;
             }, 0);
@@ -333,13 +347,7 @@ window.onload = function (evt) {
             playRandomGame();
 
             // class not removing on setTimeout
-            const removeClass = function (element) {
-                element.classList.remove('bouncy-button')
-            }
-            e.target.classList.add('bouncy-button');
-            setTimeout((function () {
-                removeClass(this);
-            }.bind(this), 100, this))
+
 
         });
     }
