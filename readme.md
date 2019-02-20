@@ -25,3 +25,6 @@
 ## ⭐ Play here: 
 - https://vermillion-pokemon-game.herokuapp.com/
 (In Progress).
+
+
+![Alt text](readme_images/pokemon.png?raw=true "Pokemon Game Image")
