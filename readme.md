@@ -1,11 +1,11 @@
 ## Vermillion Gym Pokemon Game:
 
-- Each Pokemon trainer (Professor Grim and Chuck) has three pokemon in their gym.  
+- Each Pokemon trainer (Professor Grim and Chuck) has three pokemon in their gym (fetched from the Pokemon API).  
 - Press the play button to select a random pokemon from each trainer's gym and see which Pokemon wins the round.
 
 - Code used:
     - ES6: promisifying vanilla XMLHttpRequest object via vanilla JS Promises; JS class syntax. 
-    - DOM manipulation with setTimeout, to render animations. 
+    - DOM manipulation with setTimeout and vanilla JS, to render animations. 
     - CSS Animations combine our @keyframes CSS animations with the animate.css library.
     - Express server with EJS view engine.
 
