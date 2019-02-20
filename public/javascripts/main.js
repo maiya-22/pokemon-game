@@ -231,7 +231,7 @@ window.onload = function (evt) {
                     // add boxes inside of the statBarWrap:
 
                     for (let i = 0; i < stats[stat]; i++) {
-                        console.log("playerNAME", playerName)
+                        // console.log("playerNAME", playerName)
 
                         setTimeout(() => {
                             const statBox = document.createElement('div');
@@ -324,7 +324,7 @@ window.onload = function (evt) {
                 let winner = characterOneScore > characterTwoScore ? "Chuck" : "Professor Grim";
                 return `The winner is ${winner}`;
             }
-            console.log(winnerTextAnnouncement(characterOneScore, characterTwoScore))
+            // console.log(winnerTextAnnouncement(characterOneScore, characterTwoScore))
 
         }
 
