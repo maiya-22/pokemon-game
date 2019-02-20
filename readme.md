@@ -29,4 +29,4 @@
     - Node version on hard drive: v10.15.1
     - NPM version on hard drive: 6.4.1 
 
-![Pokemon Game](https://github.com/maiya-22/pokemon-game/blob/master/readme_images/pokemin-game.png)
+![Pokemon Game](https://github.com/maiya-22/pokemon-game/blob/master/readme_images/pokemon-game.png)
