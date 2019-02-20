@@ -322,6 +322,18 @@ window.onload = function (evt) {
     }
 
     let playGameButton = document.getElementById('play-game-button')
-    playGameButton.addEventListener('click', playRandomGame);
+    playGameButton.addEventListener('click', function (e) {
+        playRandomGame();
+
+        // class not removing on setTimeout
+        const removeClass = function (element) {
+            element.classList.remove('bouncy-button')
+        }
+        e.target.classList.add('bouncy-button');
+        setTimeout((function () {
+            removeClass(this);
+        }.bind(this), 100, this))
+
+    });
 
 };
