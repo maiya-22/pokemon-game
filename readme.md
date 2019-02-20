@@ -12,7 +12,7 @@
 
 - collaboration between Maiya and Jamie Grafton: https://github.com/jjgrafton
 
-## Set up After Cloning Repo:
+#### Set up after cloning repo:
 
 - run these commands in terminal:
     - npm install
@@ -22,6 +22,6 @@
     - Node version on hard drive: v10.15.1
     - NPM version on hard drive: 6.4.1 
 
-## ⭐ deployed on heroku: https://vermillion-pokemon-game.herokuapp.com/ (In Progress).
+#### ⭐ deployed on heroku: https://vermillion-pokemon-game.herokuapp.com/ (In Progress).
 
 ![Pokemon Game](https://github.com/maiya-22/pokemon-game/blob/master/readme_images/pokemin-game.png)
