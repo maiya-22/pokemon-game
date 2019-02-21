@@ -3,14 +3,83 @@
 
 window.onload = function (evt) {
 
+
     // This JS really needs to be re-factored.
     // encapsulate code for refactoring:
-    previousCode();
+    // previousCode();
+    refactoredCode();
+
+
 
     function refactoredCode() {
         //refactor on a new branch
+        // API REQUEST function returns a promise:
+        const fetchCharacterObject = (characterName) => {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${characterName}/`);
+                xhr.send();
+                xhr.onload = function () {
+                    if (xhr.responseText === "Not Found" || xhr.status === 404) {
+                        reject({ error: `character: '${characterName}' was not found in the API` })
+                    }
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // store successful fetch to localStorage before resolving:
+                        localStorage.setItem(characterName, xhr.responseText);
+                        resolve(JSON.parse(xhr.responseText));
+                    }
+                };
+                xhr.onerror = function () {
+                    reject({ errorInFetchCharacterPromise: xhr.statusText });
+                };
+            });
+        }
+
+        const reformatDataFromApi = (apiCharacterObject) => {
+            return new Promise((resolve, reject) => {
+                const characterName = apiCharacterObject.name;
+                const reformattedStats = apiCharacterObject.stats.reduce((reformatted, stat) => {
+                    reformatted[stat.stat.name] = stat.base_stat;
+                    return reformatted;
+                }, {});
+                const reformattedAbilities = apiCharacterObject.abilities.reduce((arr, ability, index) => {
+                    arr[index] = ability.ability.name;
+                    return arr;
+                }, []);
+                const defaultPic = apiCharacterObject.sprites.front_default;
+                resolve({ name: characterName, stats: reformattedStats, abilities: reformattedAbilities, pic: defaultPic })
+            });
+        }
+
+
+
+        // promise chain to fetch and reformat data:
+        fetchCharacterObject("dragonair").then(character => {
+            console.log("dragonair", character);
+            return character;
+        }).catch(err => {
+            console.log('error in fetch Character promise chain:', err);
+        }).then(character => {
+            return reformatDataFromApi(character)
+        }).then(data => {
+            console.log("reformatted data:", data)
+        }).catch(err => {
+            console.log('error in promise chain')
+        });
+
+
+
+
+
+
+        // next line is end of refactored code:
     }
 
+    // store our data to the localStorage object, in case of errors later
+    // if the call was successful, store the character to localStorage in case api goes down/ too many requests
+
+
+    // before setting to localStorage, making sure was a successful response. Not sure if need to do this:
     function previousCode() {
         // The Character class has methods that go to the Pokemon api and fetch a Pokemon character JSON, and then reformat
         // the JSON into an object that we can then use in our JS.
