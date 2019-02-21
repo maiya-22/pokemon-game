@@ -243,18 +243,19 @@ window.onload = function (evt) {
                             statBarWrap.appendChild(statBox);
                             // if the current box-number is at the actual stat value, then add the statNumber here:
                             if (i === stats[stat] - 1) {
+                                if (playerName === 'professor') {
+                                    grimScore += stats[stat]
+                                    grimScoreBox.innerHTML = grimScore;
+                                } else if (playerName === 'chuck') {
+                                    chuckScore += stats[stat]
+                                    chuckScoreBox.innerHTML = chuckScore;
+                                }
                                 setTimeout(() => {
                                     const statNumberBox = document.createElement('div');
                                     statNumberBox.classList.add('statNumberBox');
                                     statNumberBox.innerHTML = stats[stat];
                                     statBarWrap.appendChild(statNumberBox);
-                                    if (playerName === 'professor') {
-                                        grimScore += stats[stat]
-                                        grimScoreBox.innerHTML = grimScore;
-                                    } else if (playerName === 'chuck') {
-                                        chuckScore += stats[stat]
-                                        chuckScoreBox.innerHTML = chuckScore;
-                                    }
+
                                 }, 20);
                                 // and update the score box:
 
