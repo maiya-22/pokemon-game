@@ -300,7 +300,7 @@ window.onload = function (evt) {
             }
 
 
-            // scoreBox.innerHTML = "0"
+            scoreBox.innerHTML = "0"
 
 
             // scoreBoxOne.innerHTML = "0";
