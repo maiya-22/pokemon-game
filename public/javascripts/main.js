@@ -205,9 +205,9 @@ window.onload = function (evt) {
 
                 typeWrap.innerHTML = characterName;
                 // animation not working:
-                setTimeout(() => {
-                    typeWrap.classList.add('textAnimation');
-                }, 10)
+
+                typeWrap.classList.add('textAnimation');
+
 
 
             }
