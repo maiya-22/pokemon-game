@@ -16,28 +16,45 @@
 </head>
 
 <body>
-
-
-  <div id="app-frame">
-
+  <div id="app-frame" class="frame">
     <div id="game-frame">
       <!-- header -->
-      <div class="header-row">
-        <div id="pokeLogo">
+      <div class="header-row frame">
+        <div id="pokeLogo frame">
           <img src="images/pokemon-logo-vector.png" alt="Pokemon Logo">
         </div>
-        <div id="vermillionHeader" class="shadow">
+        <div id="vermillionHeader" class="shadow frame">
           Vermillion Gym
         </div>
       </div>
-      <div class="content-row">
+      <div class="content-row frame">
+        <div class="pokedex-frame pokedex-one frame">
+          <div class="nameBox" class="pulse" id="playerOneName">
+            Professor Grim
+          </div>
+          <div class="scoreBox" id="playerOneScore">
+            0
+          </div>
+          <div class="stats">
+            <div id="professorStats" class="statsBox"></div>
+          </div>
 
+        </div>
+        <div class="pokedex-frame pokedex-two frame">
+          <div class="nameBox" class="pulse" id="playerTwoName">
+            chuck
+          </div>
+          <div class="scoreBox" id="playerTwoScore">
+            0
+          </div>
+          <div class="stats">
+            <div id="professorStats" class="statsBox"></div>
+          </div>
 
+        </div>
       </div>
-
       game
     </div>
-
   </div>
   <!-- <div class="game-frame">
 

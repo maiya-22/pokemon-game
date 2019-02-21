@@ -108,7 +108,217 @@ body {
   /* LAYOUT OF CONTENT BELOW HEADER AND TITLE */
 
   .content-row {
-    border: solid pink 3px;
     /* width is automatically going to spread across container.  height will be determined */
     height: calc(var(--unit) * 39);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
+
+  /* PODEX FOR EACH PLAYER */
+
+  .pokedex-frame {
+      border: solid green 1px;
+      width: calc(var(--unit) * 32);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+
+  .nameBox {
+    /* width: 150px; */
+    width: calc(var(--unit) * 10.5);
+    height: 35px;
+    padding-top: 2px;
+    background-color: #fff;
+    border-style: ridge;
+    border-color: #F7AF1D;
+    border-radius: 25px;
+    border-width: 5px;
+    font-family: "Andale Mono", AndaleMono,monospace;
+    color: #0081C6;
+    text-align: center;
+    animation: glow 2s ease-in-out infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes glow {
+    50% {
+      box-shadow: 0 0 60px #ffff33;
+  
+   
+     }}
+
+
+    
+.scoreBox {
+    height:calc(var(--unit) * 5);
+    width: calc(var(--unit) * 9.5);
+    background-color: #F8F9FC;
+    border-radius: 25px;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 50px;
+    text-align: center;
+    color: #0081C6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    }
+  
+  
+    /* STATS: */
+
+
+    .statWrap {
+        margin-top: 0rem;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 100px 10fr 0.5rem;
+      }
+      
+      .statBarWrap {
+        width: 100%;
+        height: 15px;
+        display: grid;
+        grid-template-columns: repeat(100, 1fr);
+        margin-bottom: 1rem;
+      }
+      
+      .statBox {
+      
+        background-color: #dc3737;
+        border-radius: 3px;
+        /* border: solid #b8860b 1px; */
+      
+        background-color: #DC3737;
+        border-radius: 3px;
+        /* border: solid #B8860B 1px; */
+        /* border-color: #F7AF1D; */
+        animation-name: statFadeIn;
+        animation-duration: 1000ms;
+        animation-direction: forwards;
+        animation-fill-mode: both;
+        animation-delay: 500ms;
+        /*  */
+      }
+      
+      
+      .statNumberBox {
+        transform: translate(-30px, -40px);
+        color: #0081c6;
+        background-color: white;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        width: 1rem;
+        height: 1rem;
+        font-weight: bold;
+        transform: scale(300%);
+        animation-name: rubberBand;
+        animation-duration: 1000ms;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        box-shadow: 0 0 50px #ffff33, /* inner white */ 20px 0 80px #ffff33,
+          /* inner left magenta short */ -20px 0 20px #ffff33,
+          /* inner right cyan short */ 20px 0 20px #ffff33,
+          /* inner left magenta broad */ -20px 0 20px #ffff33,
+          /* inner right cyan broad */ 0 0 20px #ffff33,
+          /* outer white */ -10px 0 20px #ffff33,
+          /* outer left magenta */ 10px 0 20px #ffff33;
+      }
+      
+      
+      #statLabel {
+        font-family: "Andale Mono", AndaleMono, monospace;
+        font-size: 15px;
+        margin-left: 15px;
+        color: #0081c6;
+        z-index: 2;
+        padding: 0px;
+        border-radius: 5px;
+      }
+      
+      @keyframes statFadeIn {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      
+      @keyframes bounceInRight {
+        from,
+        60%,
+        75%,
+        90%,
+        to {
+          -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+          animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+      
+        from {
+          opacity: 0;
+          -webkit-transform: translate3d(3000px, 0, 0);
+          transform: translate3d(3000px, 0, 0);
+        }
+      
+        60% {
+          opacity: 1;
+          -webkit-transform: translate3d(-25px, 0, 0);
+          transform: translate3d(-25px, 0, 0);
+        }
+      
+        75% {
+          -webkit-transform: translate3d(10px, 0, 0);
+          transform: translate3d(10px, 0, 0);
+        }
+      
+        90% {
+          -webkit-transform: translate3d(-5px, 0, 0);
+          transform: translate3d(-5px, 0, 0);
+        }
+      
+        to {
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+        }
+      }
+      
+      
+      .stats {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      
+      
+      }
+      
+      .statsBox {
+      
+        height: 250px;
+        width: 400px;
+        border-radius: 25px;
+        border-width: 10px;
+        border-style: ridge;
+        border-color: blue;
+        border-color: #B8860B;
+        background-color: white;
+        -webkit-animation: glow 2s ease-in-out infinite;
+        animation: glow 2s ease-in-out infinite;
+        background-color: rgb(221, 221, 221);
+        padding-top: 2rem;
+       
+      }
+      
+
+
+  /* TO EASILY SEE WHICH DIVS ARE THE LAYOUT FRAME, PUT A BORDER ON THIS CLASS */
+  .frame {
+      /* border: dotted purple 5px; */
+  }
+
