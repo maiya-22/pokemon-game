@@ -12,7 +12,7 @@
 #### Project Status:
 
 - Re-initializing repository, in order to refactor from serverless html to express server.
-- Refactoring code and a making a couple more animations, in progress.
+- Refactoring javaScript on branch 'refactor-js', in progress.
 - Deployed on Heroku: https://vermillion-pokemon-game.herokuapp.com/ (In Progress).
 
 #### By:
