@@ -3,6 +3,7 @@
 
 window.onload = function (evt) {
 
+    // This JS really needs to be re-factored.
     // encapsulate code for refactoring:
     previousCode();
 
@@ -276,42 +277,75 @@ window.onload = function (evt) {
         // tally their score
         // display the score and say who wins:
         // attatch this function to the play button
-        function playRandomGame(playerOne, playerTwo) {
+        function playRandomGame(player, playerOne, playerTwo) {
+            // console.log("player", e.target.dataset.player)
+            // // data-player="chuck"
+            // // data-player="professor"
             // using global characters for now. Need to refactor:
             playerOne = chuck;
             playerTwo = professorDoom;
+
             const scoreBoxOne = document.getElementById('chuckScore');
             const scoreBoxTwo = document.getElementById('professorScore');
+            const scoreBox = document.getElementById(`${player}Score`);
 
 
             // for animating name appearance:
             let chucksNames = document.getElementById('chuckNames')
             let professorNames = document.getElementById('professorNames')
-            chucksNames.className = ""
-            professorNames.className = ""
-
-
-
-            scoreBoxOne.innerHTML = "0";
-            scoreBoxTwo.innerHTML = "0"
-            const selectRandomCharacter = (player) => {
-                return player.characters[Math.floor(Math.random() * player.characters.length)]
+            if (player === 'chuck') {
+                chucksNames.className = ""
+            } else {
+                professorNames.className = ""
             }
+
+
+            // scoreBox.innerHTML = "0"
+
+
+            // scoreBoxOne.innerHTML = "0";
+            // scoreBoxTwo.innerHTML = "0"
+
+
+            const selectRandomCharacter = (playerObj) => {
+                return playerObj.characters[Math.floor(Math.random() * playerObj.characters.length)]
+            }
+
+            let character;
+            if (player === "chuck") {
+                character = selectRandomCharacter(chuck);
+            } else {
+                character = selectRandomCharacter(professorDoom);
+            }
+
 
             let characterOne = selectRandomCharacter(playerOne);
             let characterTwo = selectRandomCharacter(playerTwo);
+
+
+            let characterButton = document.querySelector(`[data=${character}]`)
             let characterOneButton = document.querySelector(`[data=${characterOne}]`);
             let characterTwoButton = document.querySelector(`[data=${characterTwo}]`);
-            characterOneButton.click()
-            characterTwoButton.click()
+
+            characterButton.click();
+            // characterOneButton.click()
+            // characterTwoButton.click()
 
             // put these on the class?
-            let characterOneScore = playerOne.gym[characterOne].stats.reduce((total, stat) => {
-                return total + stat.base_stat;
-            }, 0);
-            let characterTwoScore = playerTwo.gym[characterTwo].stats.reduce((total, stat) => {
-                return total + stat.base_stat;
-            }, 0);
+            let characterScore;
+
+            if (character === "chuck") {
+                characterScore = chuck.gym[characterOne].stats.reduce((total, stat) => {
+                    return total + stat.base_stat;
+                }, 0);
+            } else {
+                characterScore = professor.gym[characterOne].stats.reduce((total, stat) => {
+                    return total + stat.base_stat;
+                }, 0);
+            }
+            // let characterTwoScore = playerTwo.gym[characterTwo].stats.reduce((total, stat) => {
+            //     return total + stat.base_stat;
+            // }, 0);
 
             function animateScore(id, start, end, duration) {
                 var range = end - start;
@@ -328,28 +362,16 @@ window.onload = function (evt) {
                 }, stepTime);
             }
 
-            // setTimeout(() => {
-            //     animateScore("professorScore", 0, characterTwoScore, 100);
-            //     animateScore("chuckScore", 0, characterOneScore, 100);
-            // }, 1500)
-
-            const winnerTextAnnouncement = (characterOneScore, characterTwoScore) => {
-                if (characterOneScore === characterTwoScore) return "IT's a tie!"
-                let winner = characterOneScore > characterTwoScore ? "Chuck" : "Professor Grim";
-                return `The winner is ${winner}`;
-            }
-            // console.log(winnerTextAnnouncement(characterOneScore, characterTwoScore))
-
         }
 
-        let playGameButton = document.getElementById('play-game-button')
-        playGameButton.addEventListener('click', function (e) {
-            playRandomGame();
+        let playGameButtons = document.getElementsByClassName('play-game-button');
+        for (let i = 0; i < playGameButtons.length; i++) {
+            playGameButtons[i].addEventListener('click', function (e) {
+                let { player } = e.target.dataset
+                playRandomGame(player);
+            });
+        }
 
-            // class not removing on setTimeout
-
-
-        });
     }
 
 };

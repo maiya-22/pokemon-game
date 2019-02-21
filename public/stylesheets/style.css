@@ -20,6 +20,8 @@ $color :#F7AF1D; */
   width: 100vw;
   height: 100vh; 
   min-width: 1500px;
+  transform: scale(0.8);
+  transform-origin: top center;
 }
 
 /* HEADER AND LOGO: */
@@ -34,9 +36,9 @@ $color :#F7AF1D; */
   left: 0px;
   padding-top: 0;
   margin-top: 0;
-  -moz-transform:scale(0.75);
-    -webkit-transform:scale(0.75);
-    transform:scale(0.75);
+  /* -moz-transform:scale(0.75);
+    -webkit-transform:scale(0.75); */
+    transform:scale(0.85);
    
 }
 
@@ -126,8 +128,9 @@ $color :#F7AF1D; */
   font-size: 1rem;
  
 }
-#play-game-button {
+.play-game-button {
   width: 8rem;
+  margin-top: 1rem;
   /* margin-top: 7rem; */
   border:5px solid #135387;
   background-color: #CEDCE7; background-image: -webkit-gradient(linear, left top, left bottom, from(#CEDCE7), to(#596a72));
@@ -138,7 +141,6 @@ $color :#F7AF1D; */
   background-image: linear-gradient(to bottom, #CEDCE7, #596a72);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#CEDCE7, endColorstr=#596a72);
 
   
-  transform: translate(0rem, 7rem);
  
   padding: 1rem 1rem;
 
@@ -154,24 +156,20 @@ $color :#F7AF1D; */
   border-style: ridge;
   border-color: blue;
   border-color: #B8860B;
+
+  display: flex;
+  justify-content: center;
   
 }
 
-#play-game-button:hover {
+.play-game-button:hover {
  
   color: rgba(0, 0, 0, 0.721);
  
  
 
 }
-.font-animation{
-  text-align: center;
-  transition-property: scale;
-  transition-duration: 2s;
-}
-.font-animation:hover {
-  transform: scale(1.);
-}
+
 
 
 
