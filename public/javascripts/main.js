@@ -6,19 +6,26 @@ window.onload = function (evt) {
 
     // encapsulate code for refactoring:
     // previousCode();
-    refactoredCode();
+    // refactoredCode();
 
     function refactoredCode() {
         //refactor on a new branch
         // API REQUEST function returns a promise:
 
-        const createPlayer = (name, characters = ['character-name one', 'character-name two', 'character-name three']) => {
+        // the game data will be filled when the promises to create the players have been fulfilled.
+        let game = {
+            playerOne: null,
+            playerTwo: null,
+            winner: null
+        };
+
+        const createPlayer = (name, characterNames = ['character-name one', 'character-name two', 'character-name three']) => {
             let Player = {
                 name: name,
-                characters: characters,
-                charactersLoaded: false
+                score: 0,
+                characters: [],
+                charactersLoaded: false,
             }
-
             // helper function will fetch each character from the Pokemon API, by the character's name:
             const fetchCharacterObject = (characterName) => {
                 return new Promise((resolve, reject) => {
@@ -30,8 +37,8 @@ window.onload = function (evt) {
                             reject({ error: `character: '${characterName}' was not found in the API` })
                         }
                         if (xhr.readyState === 4 && xhr.status === 200) {
-                            // store successful fetch to localStorage before resolving:
-                            localStorage.setItem(characterName, xhr.responseText);
+                            // previously, was storing successful fetch to localStorage before resolving
+                            // localStorage.setItem(characterName, xhr.responseText);
                             resolve(JSON.parse(xhr.responseText));
                         }
                     };
@@ -40,7 +47,7 @@ window.onload = function (evt) {
                     };
                 });
             }
-            // helper function takes the large ammount of data returned from the api and formats just the info that we need into a simple object:
+            // helper function takes the large ammount of data returned from the api and reformats just the info that we need into a simple object:
             const reformatDataFromApi = (apiCharacterObject) => {
                 const characterName = apiCharacterObject.name;
                 const reformattedStats = apiCharacterObject.stats.reduce((reformatted, stat) => {
@@ -55,22 +62,19 @@ window.onload = function (evt) {
                 return ({ name: characterName, stats: reformattedStats, abilities: reformattedAbilities, pic: defaultPic })
             }
 
-            // the player will be returned as a promise:
+            // the Player will be returned as a promise:
             return new Promise((resolve, reject) => {
-                let { characters } = Player;
+
                 // go to the API and fetch all of the player's characters:
-                Promise.all([fetchCharacterObject(characters[0])], [fetchCharacterObject(characters[1])], [fetchCharacterObject(characters[2])])
+                Promise.all([fetchCharacterObject(characterNames[0])], [fetchCharacterObject(characterNames[1])], [fetchCharacterObject(characterNames[2])])
                     .then(arrayOfCharacters => {
                         let reformattedCharacters = arrayOfCharacters.map(apiCharacterObject => {
                             return reformatDataFromApi(apiCharacterObject)
                         });
+                        Player.characters = reformattedCharacters;
+                        Player.charactersLoaded = true;
                         // if everything was sucessfully fetched from api, resolve Player promise:
-                        resolve({
-                            name: Player.name,
-                            characters: reformattedCharacters,
-                            charactersLoaded: true
-                        })
-
+                        resolve(Player)
                     }).catch(err => {
                         console.log('error in create player promise-chain:', err);
                         // if there was an error fetching any of the characters from the API, reject Player promise:
@@ -78,67 +82,25 @@ window.onload = function (evt) {
                     })
             });
         }
-
-        createPlayer("Chuck", ["dragonair", "butterfree", "charmeleon"]).then(player => {
-            console.log("player:", player)
-        }).catch(err => {
-            console.log("err:", err)
-        })
+        // end of createPlayer function
 
 
-
-        // const fetchCharacterObject = (characterName) => {
-        //     return new Promise((resolve, reject) => {
-        //         const xhr = new XMLHttpRequest();
-        //         xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${characterName}/`);
-        //         xhr.send();
-        //         xhr.onload = function () {
-        //             if (xhr.responseText === "Not Found" || xhr.status === 404) {
-        //                 reject({ error: `character: '${characterName}' was not found in the API` })
-        //             }
-        //             if (xhr.readyState === 4 && xhr.status === 200) {
-        //                 // store successful fetch to localStorage before resolving:
-        //                 localStorage.setItem(characterName, xhr.responseText);
-        //                 resolve(JSON.parse(xhr.responseText));
-        //             }
-        //         };
-        //         xhr.onerror = function () {
-        //             reject({ errorInFetchCharacterPromise: xhr.statusText });
-        //         };
-        //     });
-        // }
-
-        // const reformatDataFromApi = (apiCharacterObject) => {
-        //     return new Promise((resolve, reject) => {
-        //         const characterName = apiCharacterObject.name;
-        //         const reformattedStats = apiCharacterObject.stats.reduce((reformatted, stat) => {
-        //             reformatted[stat.stat.name] = stat.base_stat;
-        //             return reformatted;
-        //         }, {});
-        //         const reformattedAbilities = apiCharacterObject.abilities.reduce((arr, ability, index) => {
-        //             arr[index] = ability.ability.name;
-        //             return arr;
-        //         }, []);
-        //         const defaultPic = apiCharacterObject.sprites.front_default;
-        //         resolve({ name: characterName, stats: reformattedStats, abilities: reformattedAbilities, pic: defaultPic })
-        //     });
-        // }
+        // create the two players from the createPlayer function above:
+        Promise.all([createPlayer("Chuck", ["dragonair", "butterfree", "charmeleon"]), createPlayer("Professor Grim", ["oddish", "gloom", "weezing"])])
+            .then(arrayOfPlayers => {
+                console.log("the players are loaded:", arrayOfPlayers);
+                game.playerOne = arrayOfPlayers[0];
+                game.playerTwo = arrayOfPlayers[1];
+                console.log("GAME:", game)
+            }).catch(err => {
+                console.log("there was an error in creating the players. Loading backup data for game.", err);
+                // load the game with backup data.
+            });
 
 
 
-        // // promise chain to fetch and reformat data:
-        // fetchCharacterObject("dragonair").then(character => {
-        //     console.log("dragonair", character);
-        //     return character;
-        // }).catch(err => {
-        //     console.log('error in fetch Character promise chain:', err);
-        // }).then(character => {
-        //     return reformatDataFromApi(character)
-        // }).then(data => {
-        //     console.log("reformatted data:", data)
-        // }).catch(err => {
-        //     console.log('error in promise chain')
-        // });
+
+
 
 
 

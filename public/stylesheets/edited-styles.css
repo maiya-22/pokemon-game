@@ -1,0 +1,114 @@
+
+/* to adjust the app size, do media query and adjust the root unit of measurement */
+:root {
+    --unit: 1rem; 
+  }
+
+
+/* calc(var(--unit) * 5) */
+
+
+body {
+    background-color: #DC3737;
+}
+
+#app-frame {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: calc(var(--unit) * 5);
+   
+}
+
+#game-frame {
+    border: dotted purple 1px;
+    width: calc(var(--unit) * 100);
+    height: calc(var(--unit) * 50);
+    background-color: #DC3737;
+    position: relative;
+}
+
+.header-row {
+    display: flex;
+}
+
+/* GAME TITLE STYLE AND ANIMATION */
+#vermillionHeader {
+    font-size: calc(var(--unit) * 5);
+    font-family: "Andale Mono", AndaleMono,monospace;
+    font-style: bold;
+    color: #F7AF1D;
+    padding-top: calc(var(--unit) * 3);
+    padding-bottom: calc(var(--unit) * 1);
+    padding-left: calc(var(--unit) * 20);
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    border-right: calc(var(--unit) * 0.15) solid orange;
+    /* The typwriter cursor */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    margin: 0 auto;
+    /* Gives that scrolling effect as the typing happens */
+    letter-spacing: calc(var(--unit) * 0.15);
+    /* Adjust as needed */
+    animation: typing 3.5s steps(30, end),
+    blink-caret .75s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 60%
+    }
+  }
+  
+  /* The typewriter cursor effect */
+  
+  @keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent
+    }
+    50% {
+        border-color: orange;
+    }
+  }
+  
+  .shadow {
+    text-shadow: 3px 3px 5px #B8860B;
+  }
+  
+  /* POKEMON LOGO */
+
+  #pokeLogo {
+
+
+    border: dotted gray 1px;
+    /* #game-frame has position relative on it, so positioning to that */
+    position: absolute;
+    top: calc(var(--unit) * 0);
+    left: calc(var(--unit) * 0);
+ 
+    padding-top: 0;
+    margin-top: 0;
+    /* -moz-transform:scale(0.75);
+      -webkit-transform:scale(0.75); */
+     
+  }
+  #pokeLogo img {
+
+    height: calc(var(--unit) * 11); 
+  }
+
+
+  /* LAYOUT OF CONTENT BELOW HEADER AND TITLE */
+
+  .content-row {
+    border: solid pink 3px;
+    /* width is automatically going to spread across container.  height will be determined */
+    height: calc(var(--unit) * 39);
+  }
