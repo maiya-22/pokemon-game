@@ -4,39 +4,44 @@
 window.onload = function (evt) {
 
 
-    // This JS really needs to be re-factored.
     // encapsulate code for refactoring:
     // previousCode();
     refactoredCode();
 
-
-
     function refactoredCode() {
         //refactor on a new branch
         // API REQUEST function returns a promise:
-        const fetchCharacterObject = (characterName) => {
-            return new Promise((resolve, reject) => {
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${characterName}/`);
-                xhr.send();
-                xhr.onload = function () {
-                    if (xhr.responseText === "Not Found" || xhr.status === 404) {
-                        reject({ error: `character: '${characterName}' was not found in the API` })
-                    }
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // store successful fetch to localStorage before resolving:
-                        localStorage.setItem(characterName, xhr.responseText);
-                        resolve(JSON.parse(xhr.responseText));
-                    }
-                };
-                xhr.onerror = function () {
-                    reject({ errorInFetchCharacterPromise: xhr.statusText });
-                };
-            });
-        }
 
-        const reformatDataFromApi = (apiCharacterObject) => {
-            return new Promise((resolve, reject) => {
+        const createPlayer = (name, characters = ['character-name one', 'character-name two', 'character-name three']) => {
+            let Player = {
+                name: name,
+                characters: characters,
+                charactersLoaded: false
+            }
+
+            // helper function will fetch each character from the Pokemon API, by the character's name:
+            const fetchCharacterObject = (characterName) => {
+                return new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${characterName}/`);
+                    xhr.send();
+                    xhr.onload = function () {
+                        if (xhr.responseText === "Not Found" || xhr.status === 404) {
+                            reject({ error: `character: '${characterName}' was not found in the API` })
+                        }
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // store successful fetch to localStorage before resolving:
+                            localStorage.setItem(characterName, xhr.responseText);
+                            resolve(JSON.parse(xhr.responseText));
+                        }
+                    };
+                    xhr.onerror = function () {
+                        reject({ errorInFetchCharacterPromise: xhr.statusText });
+                    };
+                });
+            }
+            // helper function takes the large ammount of data returned from the api and formats just the info that we need into a simple object:
+            const reformatDataFromApi = (apiCharacterObject) => {
                 const characterName = apiCharacterObject.name;
                 const reformattedStats = apiCharacterObject.stats.reduce((reformatted, stat) => {
                     reformatted[stat.stat.name] = stat.base_stat;
@@ -47,25 +52,93 @@ window.onload = function (evt) {
                     return arr;
                 }, []);
                 const defaultPic = apiCharacterObject.sprites.front_default;
-                resolve({ name: characterName, stats: reformattedStats, abilities: reformattedAbilities, pic: defaultPic })
+                return ({ name: characterName, stats: reformattedStats, abilities: reformattedAbilities, pic: defaultPic })
+            }
+
+            // the player will be returned as a promise:
+            return new Promise((resolve, reject) => {
+                let { characters } = Player;
+                // go to the API and fetch all of the player's characters:
+                Promise.all([fetchCharacterObject(characters[0])], [fetchCharacterObject(characters[1])], [fetchCharacterObject(characters[2])])
+                    .then(arrayOfCharacters => {
+                        let reformattedCharacters = arrayOfCharacters.map(apiCharacterObject => {
+                            return reformatDataFromApi(apiCharacterObject)
+                        });
+                        // if everything was sucessfully fetched from api, resolve Player promise:
+                        resolve({
+                            name: Player.name,
+                            characters: reformattedCharacters,
+                            charactersLoaded: true
+                        })
+
+                    }).catch(err => {
+                        console.log('error in create player promise-chain:', err);
+                        // if there was an error fetching any of the characters from the API, reject Player promise:
+                        reject(err);
+                    })
             });
         }
 
+        createPlayer("Chuck", ["dragonair", "butterfree", "charmeleon"]).then(player => {
+            console.log("player:", player)
+        }).catch(err => {
+            console.log("err:", err)
+        })
 
 
-        // promise chain to fetch and reformat data:
-        fetchCharacterObject("dragonair").then(character => {
-            console.log("dragonair", character);
-            return character;
-        }).catch(err => {
-            console.log('error in fetch Character promise chain:', err);
-        }).then(character => {
-            return reformatDataFromApi(character)
-        }).then(data => {
-            console.log("reformatted data:", data)
-        }).catch(err => {
-            console.log('error in promise chain')
-        });
+
+        // const fetchCharacterObject = (characterName) => {
+        //     return new Promise((resolve, reject) => {
+        //         const xhr = new XMLHttpRequest();
+        //         xhr.open('GET', `https://pokeapi.co/api/v2/pokemon/${characterName}/`);
+        //         xhr.send();
+        //         xhr.onload = function () {
+        //             if (xhr.responseText === "Not Found" || xhr.status === 404) {
+        //                 reject({ error: `character: '${characterName}' was not found in the API` })
+        //             }
+        //             if (xhr.readyState === 4 && xhr.status === 200) {
+        //                 // store successful fetch to localStorage before resolving:
+        //                 localStorage.setItem(characterName, xhr.responseText);
+        //                 resolve(JSON.parse(xhr.responseText));
+        //             }
+        //         };
+        //         xhr.onerror = function () {
+        //             reject({ errorInFetchCharacterPromise: xhr.statusText });
+        //         };
+        //     });
+        // }
+
+        // const reformatDataFromApi = (apiCharacterObject) => {
+        //     return new Promise((resolve, reject) => {
+        //         const characterName = apiCharacterObject.name;
+        //         const reformattedStats = apiCharacterObject.stats.reduce((reformatted, stat) => {
+        //             reformatted[stat.stat.name] = stat.base_stat;
+        //             return reformatted;
+        //         }, {});
+        //         const reformattedAbilities = apiCharacterObject.abilities.reduce((arr, ability, index) => {
+        //             arr[index] = ability.ability.name;
+        //             return arr;
+        //         }, []);
+        //         const defaultPic = apiCharacterObject.sprites.front_default;
+        //         resolve({ name: characterName, stats: reformattedStats, abilities: reformattedAbilities, pic: defaultPic })
+        //     });
+        // }
+
+
+
+        // // promise chain to fetch and reformat data:
+        // fetchCharacterObject("dragonair").then(character => {
+        //     console.log("dragonair", character);
+        //     return character;
+        // }).catch(err => {
+        //     console.log('error in fetch Character promise chain:', err);
+        // }).then(character => {
+        //     return reformatDataFromApi(character)
+        // }).then(data => {
+        //     console.log("reformatted data:", data)
+        // }).catch(err => {
+        //     console.log('error in promise chain')
+        // });
 
 
 
