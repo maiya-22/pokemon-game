@@ -131,15 +131,18 @@ $color :#F7AF1D; */
 }
 .play-game-button {
   width: 8rem;
-  margin-top: 1rem;
+  margin-top: 3rem;
   /* margin-top: 7rem; */
-  border:5px solid #135387;
-  background-color: #CEDCE7; background-image: -webkit-gradient(linear, left top, left bottom, from(#CEDCE7), to(#596a72));
-  background-image: -webkit-linear-gradient(top, #CEDCE7, #596a72);
-  background-image: -moz-linear-gradient(top, #CEDCE7, #596a72);
-  background-image: -ms-linear-gradient(top, #CEDCE7, #596a72);
-  background-image: -o-linear-gradient(top, #CEDCE7, #596a72);
-  background-image: linear-gradient(to bottom, #CEDCE7, #596a72);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#CEDCE7, endColorstr=#596a72);
+  border: 5px solid #135387;
+
+  
+  border:1px solid #c3b980; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:12px;font-family:arial, helvetica, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(0,0,0,0.3);font-weight:bold; color: #FFFFFF;
+  background-color: #d5cea6; background-image: -webkit-gradient(linear, left top, left bottom, from(#d5cea6), to(#b7ad70));
+  background-image: -webkit-linear-gradient(top, #d5cea6, #b7ad70);
+  background-image: -moz-linear-gradient(top, #d5cea6, #b7ad70);
+  background-image: -ms-linear-gradient(top, #d5cea6, #b7ad70);
+  background-image: -o-linear-gradient(top, #d5cea6, #b7ad70);
+  background-image: linear-gradient(to bottom, #d5cea6, #b7ad70);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d5cea6, endColorstr=#b7ad70);
 
   
  
@@ -151,6 +154,7 @@ $color :#F7AF1D; */
   font-size: 1.5rem;
   
   color: rgb(0, 89, 136);
+  color:  #B8860B;
   border-color: #0081C6;
   border-radius: 25px;
   border-width: 10px;
@@ -166,8 +170,8 @@ $color :#F7AF1D; */
 .play-game-button:hover {
  
   color: rgba(0, 0, 0, 0.721);
- 
- 
+  color: rgb(0, 89, 136);
+ cursor: pointer;
 
 }
 
