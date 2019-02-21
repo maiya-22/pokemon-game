@@ -25,7 +25,7 @@ body {
 #game-frame {
     border: dotted purple 1px;
     width: calc(var(--unit) * 100);
-    height: calc(var(--unit) * 50);
+    height: calc(var(--unit) * 52);
     background-color: #DC3737;
     position: relative;
 }
@@ -36,7 +36,7 @@ body {
 
 /* GAME TITLE STYLE AND ANIMATION */
 #vermillionHeader {
-    font-size: calc(var(--unit) * 5);
+    font-size: calc(var(--unit) * 4);
     font-family: "Andale Mono", AndaleMono,monospace;
     font-style: bold;
     color: #F7AF1D;
@@ -118,11 +118,12 @@ body {
   /* PODEX FOR EACH PLAYER */
 
   .pokedex-frame {
-      border: solid green 1px;
+    
       width: calc(var(--unit) * 32);
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-between;
   }
 
 
@@ -153,15 +154,15 @@ body {
 
     
 .scoreBox {
-    height:calc(var(--unit) * 5);
-    width: calc(var(--unit) * 9.5);
+    height:calc(var(--unit) * 4);
+    width: calc(var(--unit) * 5.5);
     background-color: #F8F9FC;
     border-radius: 25px;
     border-style: ridge;
     border-color: #0081C6;
     border-width: 7px;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 50px;
+    font-size: calc(var(--unit) * 2);
     text-align: center;
     color: #0081C6;
     display: flex;
@@ -315,6 +316,116 @@ body {
        
       }
       
+
+/* POKEMON CIRCLES */
+.pokemonContainer {
+    /* to adjust pokemon cirles' spacing, change this width: */
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; }
+  
+  #professorPokemon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; }
+  
+  #oddishCircle {
+    width: 100px;
+    height: 100px;
+   
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+   
+    background-image: url("/images/oddish.png"); }
+  
+  #gloomCircle {
+    width: 100px;
+    height: 100px;
+   
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+ 
+    background-image: url("/images/gloom.png"); }
+  
+  #weezingCircle {
+    width: 100px;
+    height: 100px;
+   
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    -webkit-animation: rotation 2s infinite linear;
+   
+    background-image: url("/images/weezing.png");
+   }
+  
+  #chuckPokemon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; }
+  
+  #dragonairCircle {
+    width: 100px;
+    height: 100px;
+    
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    background-image: url("/images/dragonair.jpg"); 
+  
+    -webkit-animation: rotation 2s infinite linear;
+  }
+  
+  #butterfreeCircle {
+    width: 100px;
+    height: 100px;
+   
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    background-image: url("/images/butterfree.jpg");
+    -webkit-animation: rotation 2s infinite linear;
+   }
+  
+  #charmeleonCircle {
+    width: 100px;
+    height: 100px;
+    
+    background-color: #EBEBEB;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    border-radius: 50%;
+    background-size: cover;
+    background-image: url("/images/charmeleon.jpg"); 
+    animation: rotation 2s infinite linear;
+}
+
+    @keyframes rotation {
+        from {
+          -webkit-transform: rotate(0deg); }
+        to {
+          -webkit-transform: rotate(359deg); } }
 
 
   /* TO EASILY SEE WHICH DIVS ARE THE LAYOUT FRAME, PUT A BORDER ON THIS CLASS */

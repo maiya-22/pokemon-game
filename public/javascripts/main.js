@@ -6,24 +6,25 @@ window.onload = function (evt) {
 
     // encapsulate code for refactoring:
     // previousCode();
-    // refactoredCode();
+    refactoredCode();
+
+
 
     function refactoredCode() {
-        //refactor on a new branch
-        // API REQUEST function returns a promise:
 
-        // the game data will be filled when the promises to create the players have been fulfilled.
-        let game = {
-            playerOne: null,
-            playerTwo: null,
-            winner: null
-        };
+
+        // THIS IS THE DATA YOU CHANGE TO CHANGE THE GAME SETTINGS/ re-name your character, select different pokemon:
+        let playerOneName = "professor grim";
+        let playerOneCharacters = ["oddish", "gloom", "weezing"];
+        let playerTwoName = "chuck";
+        let playerTwoCharacters = ["dragonair", "butterfree", "charmeleon"];
+
 
         const createPlayer = (name, characterNames = ['character-name one', 'character-name two', 'character-name three']) => {
             let Player = {
                 name: name,
                 score: 0,
-                characters: [],
+                characters: {},
                 charactersLoaded: false,
             }
             // helper function will fetch each character from the Pokemon API, by the character's name:
@@ -64,44 +65,97 @@ window.onload = function (evt) {
 
             // the Player will be returned as a promise:
             return new Promise((resolve, reject) => {
+                fetchCharacterObject(characterNames[0])
+                    .then(characterObj => {
+                        Player.characters.characterOne = characterObj;
+                        return fetchCharacterObject(characterNames[1]);
+                    })
+                    .then(characterObj => {
+                        Player.characters, characterTwo = characterObj;
+                        return fetchCharacterObject(characterNames[2]);
+                    }).then(characterObj => {
+                        Player.characters.characterThree = characterObj;
+                    }).catch(err => {
+                        console.log("error in fetchCharacterObject promise chain:", err)
+                    }).finally(() => {
+                        // reformat the character objects
+                        console.log("PLAYER:", Player)
+                    })
+
+
+
+
+
 
                 // go to the API and fetch all of the player's characters:
-                Promise.all([fetchCharacterObject(characterNames[0])], [fetchCharacterObject(characterNames[1])], [fetchCharacterObject(characterNames[2])])
-                    .then(arrayOfCharacters => {
-                        let reformattedCharacters = arrayOfCharacters.map(apiCharacterObject => {
-                            return reformatDataFromApi(apiCharacterObject)
-                        });
-                        Player.characters = reformattedCharacters;
-                        Player.charactersLoaded = true;
-                        // if everything was sucessfully fetched from api, resolve Player promise:
-                        resolve(Player)
-                    }).catch(err => {
-                        console.log('error in create player promise-chain:', err);
-                        // if there was an error fetching any of the characters from the API, reject Player promise:
-                        reject(err);
-                    })
+                // Promise.all([fetchCharacterObject(characterNames[0])], [fetchCharacterObject(characterNames[1])], [fetchCharacterObject(characterNames[2])])
+                //     .then(arrayOfCharacters => {
+                //         // console.log("array of characters:", arrayOfCharacters)
+                //         // characterNumber:
+                //         // let reformattedCharacters = arrayOfCharacters.map(apiCharacterObject => {
+                //         //     return reformatDataFromApi(apiCharacterObject)
+                //         // });
+                //         // Player.characters = reformattedCharacters[0];
+                //         // Player.charactersLoaded = true;
+                //         // if everything was sucessfully fetched from api, resolve Player promise:
+                //         resolve(Player)
+                //     }).catch(err => {
+                //         // console.log('error in create player promise-chain:', err);
+                //         // if there was an error fetching any of the characters from the API, reject Player promise:
+                //         reject(err);
+                //     })
             });
         }
         // end of createPlayer function
 
+        // CREATING THE GAME:
+        let game = {
+            playerOne: {},
+            playerTwo: {},
+            winner: null
+        };
 
-        // create the two players from the createPlayer function above:
-        Promise.all([createPlayer("Chuck", ["dragonair", "butterfree", "charmeleon"]), createPlayer("Professor Grim", ["oddish", "gloom", "weezing"])])
+        Promise.all([createPlayer(playerOneName, playerOneCharacters), createPlayer(playerTwoName, playerTwoCharacters)])
             .then(arrayOfPlayers => {
-                console.log("the players are loaded:", arrayOfPlayers);
+                // console.log("ARRAY OF PLAYERS", arrayOfPlayers)
                 game.playerOne = arrayOfPlayers[0];
                 game.playerTwo = arrayOfPlayers[1];
-                console.log("GAME:", game)
+                // console.log("the players are loaded:", arrayOfPlayers);
+                // console.log("GAME:", game)
             }).catch(err => {
-                console.log("there was an error in creating the players. Loading backup data for game.", err);
-                // load the game with backup data.
+                // console.log("there was an error in creating the players. Loading backup data for game.", err);
+                // load backup data, if api is down
             });
 
 
+        // AT THIS POINT, GAME IS INITIALIZED WITH PLAYERONE AND PLAYERTWO AND THEIR CHARACTERS
 
 
+        // click listener: if you click a character button, the event-listener will fire a function to play a round:
+        let gameElement = document.getElementById("game-frame");
+        gameElement.addEventListener("click", (e) => {
+            let { player, character } = e.target.dataset;
+            if (player && character) {
+                playMove(player, character)
+            }
+        });
 
+        // 
+        function playMove(player, characterName) {
+            // console.log(player, characterName);
 
+            // get the player's score-box, stat-box, and name-box
+            let scoreBox = document.getElementById(`${player}-score-box`);
+            let statBox = document.getElementById(`${player}-stat-box`);
+            let nameBox = document.getElementById(`${player}-name-box`);
+            // console.log(scoreBox, statBox, nameBox);
+
+            // get the character object;
+            // let character = game['professor grim'];
+            // console.log("CHARACTER TO BE PLAYED", character)
+
+            console.log(game)
+        }
 
 
 
@@ -481,3 +535,25 @@ window.onload = function (evt) {
     }
 
 };
+
+
+
+        // Pokemon API crashes, so want a game to render if it's not up, and don't want to clutter localStorage object.
+        // const createBackupCharacter = () => {
+        //     let names = "charlie jack alie bob joe sparkle rainbow".split(' ')
+        //     function randomNumber(max) {
+        //         return Math.floor(Math.random() * max); //true max would be + 1
+        //     }
+        //     return {
+        //         name: names[Math.floor(Math.random() * names.length)],
+        //         pic: "images/backup-pic.png",
+        //         stats: {
+        //             speed: randomNumber(100),
+        //             "special-defense": randomNumber(100),
+        //             "special-attack": randomNumber(100),
+        //             defense: randomNumber(100),
+        //             attack: randomNumber(100),
+        //             hp: randomNumber(100)
+        //         }
+        //     }
+        // }
