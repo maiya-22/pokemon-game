@@ -98,14 +98,15 @@ window.onload = function (evt) {
         }).catch(err => {
             // console.log("error in create players chain:", err)
             console.log(err);
-        }).finally(() => {
-            // buttons start spinning when game can be played:
-
-            for (let i = 0; i < playButtons.length; i++) {
-                let button = playButtons[i];
-                button.classList.add("spinningButtons");
-            }
         })
+    // .finally(() => {
+    //     // buttons start spinning when game can be played:
+
+    //     for (let i = 0; i < playButtons.length; i++) {
+    //         let button = playButtons[i];
+    //         button.classList.add("spinningButtons");
+    //     }
+    // })
 
     // NOW ANIMATE THE GAME:
     // click listener: if you click a character button, the event-listener will fire a function to play a round:
