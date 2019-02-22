@@ -28,5 +28,3 @@
     - NPM version on hard drive: 6.4.1 
 
 ![Pokemon Game Layout 2](https://github.com/maiya-22/pokemon-game/blob/master/readme_images/pokemon-game-refactor.png)
-
-![Pokemon Game Gif](file:///private/var/folders/g6/n2jkgg6s4pd0cfz79b703_d80000gn/T/TemporaryItems/SaveForWeb/BrowserPreview/BrowserPreview_tmp.html)
