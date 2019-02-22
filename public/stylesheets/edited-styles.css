@@ -1,0 +1,433 @@
+@import url("./animateCSS/animate.css");
+/* to adjust the app size, do media query and adjust the root unit of measurement */
+:root {
+    --unit: 1rem; 
+  }
+
+/* calc(var(--unit) * 5) */
+
+body {
+    background-color: #DC3737;
+}
+
+#app-frame {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: calc(var(--unit) * 2);
+}
+
+#game-frame {
+    width: calc(var(--unit) * 100);
+    height: calc(var(--unit) * 53);
+    background-color: #DC3737;
+    position: relative;
+}
+
+.header-row {
+    display: flex;
+}
+
+/* GAME TITLE STYLE AND ANIMATION */
+#vermillionHeader {
+    font-size: calc(var(--unit) * 4);
+    font-family: "Andale Mono", AndaleMono,monospace;
+    font-style: bold;
+    color: #F7AF1D;
+    padding-top: calc(var(--unit) * 3);
+    padding-bottom: calc(var(--unit) * 1);
+    padding-left: calc(var(--unit) * 20);
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    border-right: calc(var(--unit) * 0.15) solid orange;
+    /* The typwriter cursor */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    margin: 0 auto;
+    /* Gives that scrolling effect as the typing happens */
+    letter-spacing: calc(var(--unit) * 0.15);
+    /* Adjust as needed */
+    animation: typing 3.5s steps(30, end),
+    blink-caret .75s step-end infinite;
+    margin-bottom: 5rem;
+  }
+  
+  @keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 60%
+    }
+  }
+  
+  /* The typewriter cursor effect */
+  
+  @keyframes blink-caret {
+    from,
+    to {
+        border-color: transparent
+    }
+    50% {
+        border-color: orange;
+    }
+  }
+  
+  .shadow {
+    text-shadow: 3px 3px 5px #B8860B;
+  }
+  
+  /* POKEMON LOGO */
+
+  #pokeLogo {
+    /* #game-frame has position relative on it, so positioning to that */
+    position: absolute;
+    top: calc(var(--unit) * 0);
+    left: calc(var(--unit) * 0);
+ 
+    padding-top: 0;
+    margin-top: 0;
+    /* -moz-transform:scale(0.75);
+      -webkit-transform:scale(0.75); */
+     
+  }
+  #pokeLogo img {
+    height: calc(var(--unit) * 9); 
+  }
+
+
+  /* LAYOUT OF CONTENT BELOW HEADER AND TITLE */
+
+  .content-row {
+    /* width is automatically going to spread across container.  height will be determined */
+    height: calc(var(--unit) * 40);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  /* PODEX FOR EACH PLAYER */
+
+  .pokedex-frame {
+    
+      width: calc(var(--unit) * 32);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+
+  .nameBox {
+    /* width: 150px; */
+    width: calc(var(--unit) * 10.5);
+    height: 35px;
+    padding-top: 2px;
+    background-color: #fff;
+    border-style: ridge;
+    border-color: #F7AF1D;
+  
+    border-radius: 25px;
+    border-width: 5px;
+    font-family: "Andale Mono", AndaleMono,monospace;
+    color: #0081C6;
+    text-align: center;
+    animation: glow 2s ease-in-out infinite;
+    margin-bottom: 1rem;
+  }
+
+.character-text-box {
+    height: 2rem;
+
+}
+
+  .current-character-name {
+      font-size: 1.5rem;
+      animation-name: rubberBand;
+      animation-duration: 1s;
+      color: #F7AF1D;
+      text-shadow: 3px 3px 5px #B8860B;
+      font-family: "Andale Mono", AndaleMono,monospace;
+     
+}
+
+  
+  @keyframes glow {
+    50% {
+      box-shadow: 0 0 60px #ffff33;
+
+     }}
+
+
+    
+.scoreBox {
+    height:calc(var(--unit) * 4);
+    width: calc(var(--unit) * 5.5);
+    background-color: #F8F9FC;
+    border-radius: 25px;
+    border-style: ridge;
+    border-color: #0081C6;
+    border-width: 7px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: calc(var(--unit) * 2);
+    text-align: center;
+    color: #0081C6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    }
+  
+  
+    /* STATS: */
+
+
+    .statWrap {
+        margin-top: 0rem;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 100px 10fr 0.5rem;
+      }
+      
+      .statBarWrap {
+        width: 100%;
+        height: 15px;
+        display: grid;
+        grid-template-columns: repeat(100, 1fr);
+        margin-bottom: 1rem;
+      }
+      
+      .statBox {
+        background-color: #dc3737;
+        border-radius: 3px;
+        /* border: solid #b8860b 1px; */
+        background-color: #DC3737;
+        border-radius: 3px;
+        /* border: solid #B8860B 1px; */
+        /* border-color: #F7AF1D; */
+        animation-name: statFadeIn;
+        animation-duration: 1000ms;
+        animation-direction: forwards;
+        animation-fill-mode: both;
+        animation-delay: 500ms;
+        height: 1rem;
+        /*  */
+      }
+      
+      
+      .statNumberBox {
+        /* transform: translate(-30px, -40px); */
+        color: #0081c6;
+        background-color: white;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        width: 1rem;
+        height: 1rem;
+        font-weight: bold;
+        /* transform: scale(300%); */
+      
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+        box-shadow: 0 0 50px #ffff33, /* inner white */ 20px 0 80px #ffff33,
+          /* inner left magenta short */ -20px 0 20px #ffff33,
+          /* inner right cyan short */ 20px 0 20px #ffff33,
+          /* inner left magenta broad */ -20px 0 20px #ffff33,
+          /* inner right cyan broad */ 0 0 20px #ffff33,
+          /* outer white */ -10px 0 20px #ffff33,
+          /* outer left magenta */ 10px 0 20px #ffff33;
+          animation-name: rubberBand;
+          animation-duration: 1000ms;
+          
+      }
+      
+      
+      #statLabel {
+        font-family: "Andale Mono", AndaleMono, monospace;
+        font-size: 15px;
+        margin-left: 15px;
+        color: #0081c6;
+        z-index: 2;
+        padding: 0px;
+        border-radius: 5px;
+      }
+      
+      @keyframes statFadeIn {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      
+      @keyframes bounceInRight {
+        from,
+        60%,
+        75%,
+        90%,
+        to {
+          -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+          animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+      
+        from {
+          opacity: 0;
+          -webkit-transform: translate3d(3000px, 0, 0);
+          transform: translate3d(3000px, 0, 0);
+        }
+      
+        60% {
+          opacity: 1;
+          -webkit-transform: translate3d(-25px, 0, 0);
+          transform: translate3d(-25px, 0, 0);
+        }
+      
+        75% {
+          -webkit-transform: translate3d(10px, 0, 0);
+          transform: translate3d(10px, 0, 0);
+        }
+      
+        90% {
+          -webkit-transform: translate3d(-5px, 0, 0);
+          transform: translate3d(-5px, 0, 0);
+        }
+      
+        to {
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+        }
+      }
+      
+      
+
+      
+      .statsBox {
+        height: 250px;
+        width: calc(var(--unit) * 30);
+        border-radius: 25px;
+        border-width: 10px;
+        border-style: ridge;
+        border-color: blue;
+        border-color: #B8860B;
+        background-color: white;
+        -webkit-animation: glow 2s ease-in-out infinite;
+        animation: glow 2s ease-in-out infinite;
+        background-color: rgb(221, 221, 221);
+        padding-top: calc(var(--unit) * 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background-color: #F8F9FC;
+      }
+      
+
+/* POKEMON CIRCLES */
+
+
+.pokemonContainer {
+    /* to adjust pokemon cirles' spacing, change this width: */
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+    align-items: center;
+    padding-top: calc(var(--unit) * 1.5);
+}
+  
+   
+
+    .play-button { 
+       width: calc(var(--unit) * 7);
+       height: calc(var(--unit) * 7);
+        background-color: #EBEBEB;
+        border-style: ridge;
+        border-color: #0081C6;
+        border-width: 8px;
+        border-radius: 50%;
+        background-size: cover;
+        transition-property: border-color;
+        transition-duration: 1s; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 900;
+        cursor: pointer;
+    }
+
+    .spinningButtons {
+        -webkit-animation: rotation 2s 1 ease-in;
+        -webkit-animation: rotation 2s infinite linear 2s;
+    }
+
+    .play-button:hover {
+        border-color: #bdbd25;
+        -webkit-box-shadow: -5px 0px 47px -9px  #ffff33;
+        -moz-box-shadow: -5px 0px 47px -9px #ffff33;
+        box-shadow: -5px 0px 47px -9px  #ffff33;
+    }
+
+
+
+  #professorPokemon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; }
+  
+  #oddishCircle {
+   
+   
+    background-image: url("/images/oddish.png"); }
+  
+  #gloomCircle {
+ 
+  
+ 
+    background-image: url("/images/gloom.png"); }
+  
+  #weezingCircle {
+  
+   
+   
+    background-image: url("/images/weezing.png");
+   }
+  
+  #chuckPokemon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; }
+  
+  #dragonairCircle {
+
+   
+    background-image: url("/images/dragonair.jpg"); 
+  
+  
+  }
+  
+  #butterfreeCircle {
+  
+    background-image: url("/images/butterfree.jpg");
+    
+   }
+  
+  #charmeleonCircle {
+ 
+   
+    background-image: url("/images/charmeleon.jpg"); 
+   
+}
+
+    @keyframes rotation {
+        from {
+          -webkit-transform: rotate(0deg); }
+        to {
+          -webkit-transform: rotate(359deg); } }
+
+
+  /* TO EASILY SEE WHICH DIVS ARE THE LAYOUT FRAME, PUT A BORDER ON THIS CLASS */
+  .frame {
+      /* border: dotted purple 5px; */
+  }
+

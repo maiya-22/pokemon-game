@@ -155,9 +155,6 @@ $color :#F7AF1D; */
   background-image: linear-gradient(to bottom, #d5cea6, #b7ad70);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d5cea6, endColorstr=#b7ad70);
 
   
- 
-  
-
 
   letter-spacing: 0.1rem;
   font-weight: 900;
@@ -241,6 +238,11 @@ $color :#F7AF1D; */
   margin-bottom: 1rem;
   }
 
+
+  /* CHARACTER NAME */
+  .current-character-name {
+    font-size: 1.5rem;
+  }
 
   /* POKEMON CIRCLES */
   .pokemonContainer {
