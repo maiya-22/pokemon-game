@@ -16,7 +16,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-top: calc(var(--unit) * 5);
+    padding-top: calc(var(--unit) * 2);
 }
 
 #game-frame {
@@ -51,6 +51,7 @@ body {
     /* Adjust as needed */
     animation: typing 3.5s steps(30, end),
     blink-caret .75s step-end infinite;
+    margin-bottom: 5rem;
   }
   
   @keyframes typing {
@@ -127,6 +128,7 @@ body {
     background-color: #fff;
     border-style: ridge;
     border-color: #F7AF1D;
+  
     border-radius: 25px;
     border-width: 5px;
     font-family: "Andale Mono", AndaleMono,monospace;
@@ -135,12 +137,27 @@ body {
     animation: glow 2s ease-in-out infinite;
     margin-bottom: 1rem;
   }
+
+.character-text-box {
+    height: 2rem;
+
+}
+
+  .current-character-name {
+      font-size: 1.5rem;
+      animation-name: rubberBand;
+      animation-duration: 1s;
+      color: #F7AF1D;
+      text-shadow: 3px 3px 5px #B8860B;
+      font-family: "Andale Mono", AndaleMono,monospace;
+     
+}
+
   
   @keyframes glow {
     50% {
       box-shadow: 0 0 60px #ffff33;
-  
-   
+
      }}
 
 
@@ -183,11 +200,9 @@ body {
       }
       
       .statBox {
-      
         background-color: #dc3737;
         border-radius: 3px;
         /* border: solid #b8860b 1px; */
-      
         background-color: #DC3737;
         border-radius: 3px;
         /* border: solid #B8860B 1px; */
@@ -323,8 +338,7 @@ body {
   
    
 
-    .play-button {
-      
+    .play-button { 
        width: calc(var(--unit) * 7);
        height: calc(var(--unit) * 7);
         background-color: #EBEBEB;
@@ -339,6 +353,7 @@ body {
         justify-content: center;
         align-items: center;
         font-weight: 900;
+        cursor: pointer;
     }
 
     .spinningButtons {

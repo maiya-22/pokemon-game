@@ -239,6 +239,11 @@ $color :#F7AF1D; */
   }
 
 
+  /* CHARACTER NAME */
+  .current-character-name {
+    font-size: 1.5rem;
+  }
+
   /* POKEMON CIRCLES */
   .pokemonContainer {
     display: flex;

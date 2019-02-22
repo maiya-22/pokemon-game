@@ -1,16 +1,7 @@
-
-
 /* eslint func-names: 0,  no-unused-vars: 0, no-alert: 0, class-methods-use-this: 0 , no-plusplus: 0 , indend: 0 , no-restricted-syntax: 0 , no-use-before-define: 0 , no-loop-func: 0, func-names: 0, space-before-blocks: 0, indent: 0, max-len: 0 */
 // The comments above are just to remove error messages from my VS Code
 
 window.onload = function (evt) {
-
-
-
-    let playButtons = document.getElementsByClassName('play-button');
-    // console.log("playButtons:", playButtons);
-
-    // THIS IS THE DATA YOU CHANGE TO CHANGE THE GAME SETTINGS/ re-name your character, select different pokemon:
 
     const createPlayer = (name, characterNames = ['character-name one', 'character-name two', 'character-name three']) => {
         let playerNumbers = "playerOne playerTwo".split(' ')
@@ -20,7 +11,7 @@ window.onload = function (evt) {
             characters: {},
             charactersLoaded: false,
         }
-        game[playerNumbers.shift()] = Player;
+
         // helper function will fetch each character from the Pokemon API, by the character's name:
         const fetchCharacterObject = (characterName) => {
             return new Promise((resolve, reject) => {
@@ -82,37 +73,40 @@ window.onload = function (evt) {
     // end of createPlayer function
 
     // CREATING THE GAME:
+    let playButtons = document.getElementsByClassName('play-button');
+
     let playerOneName = "professor grim";
     let playerOneCharacters = ["oddish", "gloom", "weezing"];
     let playerTwoName = "chuck";
     let playerTwoCharacters = ["dragonair", "butterfree", "charmeleon"];
 
     const game = {
-        playerOne: {},
-        playerTwo: {},
+        playerOne: null,
+        playerTwo: null,
         winner: null
     };
 
-    createPlayer("professor grim", characterNames = ['oddish', 'gloom', 'weezing'])
+    createPlayer("professor grim", ['oddish', 'gloom', 'weezing'])
         .then(playerObject => {
+            game.playerOne = {};
             game.playerOne = playerObject;
-            return createPlayer("chuck", characterNames = ['dragonair', 'butterfree', 'charmeleon'])
+            console.log("GAME", game);
+
+            return createPlayer("chuck", ['dragonair', 'butterfree', 'charmeleon'])
         }).then(playerObject => {
+            game.playerTwo = {};
             game.playerTwo = playerObject;
         }).catch(err => {
             console.log("error in create players chain:", err)
         }).finally(() => {
-            console.log("FINAL GAME:", game);
-            setTimeout(function () {
-                for (let i = 0; i < playButtons.length; i++) {
-                    let button = playButtons[i];
-                    button.classList.add("spinningButtons");
-                }
-            }, 3000);
+            // buttons start spinning when game can be played:
+            for (let i = 0; i < playButtons.length; i++) {
+                let button = playButtons[i];
+                button.classList.add("spinningButtons");
+            }
         })
 
-    // AT THIS POINT, GAME IS INITIALIZED WITH PLAYERONE AND PLAYERTWO AND THEIR CHARACTERS
-
+    // NOW ANIMATE THE GAME:
     // click listener: if you click a character button, the event-listener will fire a function to play a round:
     let gameElement = document.getElementById("game-frame");
     gameElement.addEventListener("click", (e) => {
@@ -128,25 +122,33 @@ window.onload = function (evt) {
         let player = game[playerName];
         let { score } = player;
         let character = player.characters[characterName];
+        console.log("game:", game)
         let { stats } = character;
-
 
         // get the player's DOM elements:
         let scoreBox = document.getElementById(`${playerName}-score-box`);
         let statBox = document.getElementById(`${playerName}-stat-box`);
         let nameBox = document.getElementById(`${playerName}-name-box`);
+
+        nameBox.innerHTML = "";
+        let characterNameDisplay = document.createElement('div');
+        characterNameDisplay.classList = "current-character-name";
+        characterNameDisplay.innerHTML = character.name[0].toUpperCase() + character.name.slice(1);
+
+        setTimeout(() => {
+            nameBox.appendChild(characterNameDisplay);
+        }, 10);
+
+        // console.log("characterNameDisplay", characterNameDisplay);
+        console.log("nameBox", nameBox);
+        // nameBox.appendChild(characterNameDisplay);
+
         statBox.innerHTML = "";
-
-        console.log("STATS", stats)
         // DRAW the stats animation:
-
         // Add the HTML/DOM elements that will be labels for the stats and contain a bar that measures the stat:
         let statNames = Object.keys(stats);
         statNames.forEach(stat => {
             let statValue = stats[stat]
-            // div.statWrap.id.statTitle
-            //.. div.statLabel {stat}:
-            // Where is the div.statBarWrap ?
             const statWrap = document.createElement('div');
             statWrap.classList.add('statWrap');
             statWrap.setAttribute('id', 'statTitle');
@@ -175,9 +177,7 @@ window.onload = function (evt) {
                         statBarWrap.appendChild(statNumberBox);
                     }, i * 25);
                 }
-
             }
-
         });
     }
 };
