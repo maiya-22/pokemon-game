@@ -67,19 +67,19 @@ window.onload = function (evt) {
                     // if there is an error, load backup data
                     reject(err);
                 }).finally(() => {
-                    console.log("fetch character promise has run");
+                    // console.log("fetch character promise has run");
                 });
         });
     }
     // end of createPlayer function
 
     // CREATING THE GAME:
-    let playButtons = document.getElementsByClassName('play-button');
+    // let playButtons = document.getElementsByClassName('play-button');
     let playerOneName = "professor grim";
     let playerOneCharacters = ["oddish", "gloom", "weezing"];
     let playerTwoName = "chuck";
     let playerTwoCharacters = ["dragonair", "butterfree", "charmeleon"];
-
+    let playButtons = document.getElementsByClassName('play-button');
     const game = {
         playerOne: null,
         playerTwo: null,
@@ -90,7 +90,7 @@ window.onload = function (evt) {
         .then(playerObject => {
             game.playerOne = {};
             game.playerOne = playerObject;
-            console.log("GAME", game);
+            // console.log("GAME", game);
             return createPlayer("chuck", ['dragonair', 'butterfree', 'charmeleon'])
         }).then(playerObject => {
             game.playerTwo = {};
@@ -98,8 +98,8 @@ window.onload = function (evt) {
         }).catch(err => {
             console.log("error in create players chain:", err)
         }).finally(() => {
-
             // buttons start spinning when game can be played:
+
             for (let i = 0; i < playButtons.length; i++) {
                 let button = playButtons[i];
                 button.classList.add("spinningButtons");
@@ -122,7 +122,7 @@ window.onload = function (evt) {
         let player = game[playerName];
         let { score } = player;
         let character = player.characters[characterName];
-        console.log("game:", game)
+        // console.log("game:", game)
         let { stats } = character;
 
         // get the player's DOM elements:

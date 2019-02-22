@@ -1,16 +1,17 @@
 ## Vermillion Gym Pokemon Game:
+- A little game app, to practice fetching from an api, promises, and animations.
 
 - Code used:
     - ES6: promisifying vanilla XMLHttpRequest object via vanilla JS Promises; JS factory functions. 
     - DOM manipulation with setTimeout and vanilla JS, to render animations. 
     - CSS Animations combine our @keyframes CSS animations with the animate.css library.
     - Express server with EJS view engine.
-    - Game rendering via client-side JS file.
-    
+    - Game rendering via client-side JS file. /public/javascripts/main.js
+
 #### Project Status:
 
 - Re-initializing repository, in order to refactor from serverless html to express server.
-- Deployed on Heroku: https://vermillion-pokemon-game.herokuapp.com/.
+- Please view in Chrome Browser: https://vermillion-pokemon-game.herokuapp.com/.
 
 #### By:
 
