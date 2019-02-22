@@ -1,12 +1,10 @@
-
+@import url("./animateCSS/animate.css");
 /* to adjust the app size, do media query and adjust the root unit of measurement */
 :root {
     --unit: 1rem; 
   }
 
-
 /* calc(var(--unit) * 5) */
-
 
 body {
     background-color: #DC3737;
@@ -19,13 +17,11 @@ body {
     flex-direction: row;
     justify-content: center;
     padding-top: calc(var(--unit) * 5);
-   
 }
 
 #game-frame {
-    border: dotted purple 1px;
     width: calc(var(--unit) * 100);
-    height: calc(var(--unit) * 52);
+    height: calc(var(--unit) * 53);
     background-color: #DC3737;
     position: relative;
 }
@@ -105,7 +101,7 @@ body {
 
   .content-row {
     /* width is automatically going to spread across container.  height will be determined */
-    height: calc(var(--unit) * 39);
+    height: calc(var(--unit) * 40);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -201,12 +197,13 @@ body {
         animation-direction: forwards;
         animation-fill-mode: both;
         animation-delay: 500ms;
+        height: 1rem;
         /*  */
       }
       
       
       .statNumberBox {
-        transform: translate(-30px, -40px);
+        /* transform: translate(-30px, -40px); */
         color: #0081c6;
         background-color: white;
         padding-left: 2rem;
@@ -214,9 +211,8 @@ body {
         width: 1rem;
         height: 1rem;
         font-weight: bold;
-        transform: scale(300%);
-        animation-name: rubberBand;
-        animation-duration: 1000ms;
+        /* transform: scale(300%); */
+      
         animation-iteration-count: 1;
         animation-fill-mode: both;
         box-shadow: 0 0 50px #ffff33, /* inner white */ 20px 0 80px #ffff33,
@@ -226,6 +222,9 @@ body {
           /* inner right cyan broad */ 0 0 20px #ffff33,
           /* outer white */ -10px 0 20px #ffff33,
           /* outer left magenta */ 10px 0 20px #ffff33;
+          animation-name: rubberBand;
+          animation-duration: 1000ms;
+          
       }
       
       
@@ -287,18 +286,11 @@ body {
       }
       
       
-      .stats {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      
-      
-      }
+
       
       .statsBox {
-      
         height: 250px;
-        width: 400px;
+        width: calc(var(--unit) * 30);
         border-radius: 25px;
         border-width: 10px;
         border-style: ridge;
@@ -308,8 +300,11 @@ body {
         -webkit-animation: glow 2s ease-in-out infinite;
         animation: glow 2s ease-in-out infinite;
         background-color: rgb(221, 221, 221);
-        padding-top: 2rem;
-       
+        padding-top: calc(var(--unit) * 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        background-color: #F8F9FC;
       }
       
 
@@ -321,18 +316,44 @@ body {
     width: 80%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around; }
+    justify-content: space-around; 
+    align-items: center;
+    padding-top: calc(var(--unit) * 1.5);
+}
   
+   
+
+    .play-button {
+      
+       width: calc(var(--unit) * 7);
+       height: calc(var(--unit) * 7);
+        background-color: #EBEBEB;
+        border-style: ridge;
+        border-color: #0081C6;
+        border-width: 8px;
+        border-radius: 50%;
+        background-size: cover;
+        transition-property: border-color;
+        transition-duration: 1s; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 900;
+    }
+
     .spinningButtons {
         -webkit-animation: rotation 2s 1 ease-in;
         -webkit-animation: rotation 2s infinite linear 2s;
     }
 
-    .play-button {
-        width: 100px;
-        height: 100px;
-       
+    .play-button:hover {
+        border-color: #bdbd25;
+        -webkit-box-shadow: -5px 0px 47px -9px  #ffff33;
+        -moz-box-shadow: -5px 0px 47px -9px #ffff33;
+        box-shadow: -5px 0px 47px -9px  #ffff33;
     }
+
+
 
   #professorPokemon {
     display: flex;
@@ -341,39 +362,17 @@ body {
   
   #oddishCircle {
    
-    background-color: #EBEBEB;
-    border-style: ridge;
-    border-color: #0081C6;
-    border-width: 7px;
-    border-radius: 50%;
-    background-size: cover;
-   
    
     background-image: url("/images/oddish.png"); }
   
   #gloomCircle {
  
   
-   
-    background-color: #EBEBEB;
-    border-style: ridge;
-    border-color: #0081C6;
-    border-width: 7px;
-    border-radius: 50%;
-    background-size: cover;
-   
  
     background-image: url("/images/gloom.png"); }
   
   #weezingCircle {
   
-   
-    background-color: #EBEBEB;
-    border-style: ridge;
-    border-color: #0081C6;
-    border-width: 7px;
-    border-radius: 50%;
-    background-size: cover;
    
    
     background-image: url("/images/weezing.png");
@@ -386,13 +385,7 @@ body {
   
   #dragonairCircle {
 
-    
-    background-color: #EBEBEB;
-    border-style: ridge;
-    border-color: #0081C6;
-    border-width: 7px;
-    border-radius: 50%;
-    background-size: cover;
+   
     background-image: url("/images/dragonair.jpg"); 
   
   
@@ -400,25 +393,13 @@ body {
   
   #butterfreeCircle {
   
-    background-color: #EBEBEB;
-    border-style: ridge;
-    border-color: #0081C6;
-    border-width: 7px;
-    border-radius: 50%;
-    background-size: cover;
     background-image: url("/images/butterfree.jpg");
     
    }
   
   #charmeleonCircle {
  
-    
-    background-color: #EBEBEB;
-    border-style: ridge;
-    border-color: #0081C6;
-    border-width: 7px;
-    border-radius: 50%;
-    background-size: cover;
+   
     background-image: url("/images/charmeleon.jpg"); 
    
 }
