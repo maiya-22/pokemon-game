@@ -1,32 +1,30 @@
+
+
 /* eslint func-names: 0,  no-unused-vars: 0, no-alert: 0, class-methods-use-this: 0 , no-plusplus: 0 , indend: 0 , no-restricted-syntax: 0 , no-use-before-define: 0 , no-loop-func: 0, func-names: 0, space-before-blocks: 0, indent: 0, max-len: 0 */
 // The comments above are just to remove error messages from my VS Code
 
 window.onload = function (evt) {
 
-
     // encapsulate code for refactoring:
     // previousCode();
     refactoredCode();
 
-
-
     function refactoredCode() {
 
+        let playButtons = document.getElementsByClassName('play-button');
+        // console.log("playButtons:", playButtons);
 
         // THIS IS THE DATA YOU CHANGE TO CHANGE THE GAME SETTINGS/ re-name your character, select different pokemon:
-        let playerOneName = "professor grim";
-        let playerOneCharacters = ["oddish", "gloom", "weezing"];
-        let playerTwoName = "chuck";
-        let playerTwoCharacters = ["dragonair", "butterfree", "charmeleon"];
-
 
         const createPlayer = (name, characterNames = ['character-name one', 'character-name two', 'character-name three']) => {
+            let playerNumbers = "playerOne playerTwo".split(' ')
             let Player = {
                 name: name,
                 score: 0,
                 characters: {},
                 charactersLoaded: false,
             }
+            game[playerNumbers.shift()] = Player;
             // helper function will fetch each character from the Pokemon API, by the character's name:
             const fetchCharacterObject = (characterName) => {
                 return new Promise((resolve, reject) => {
@@ -48,6 +46,7 @@ window.onload = function (evt) {
                     };
                 });
             }
+
             // helper function takes the large ammount of data returned from the api and reformats just the info that we need into a simple object:
             const reformatDataFromApi = (apiCharacterObject) => {
                 const characterName = apiCharacterObject.name;
@@ -67,95 +66,86 @@ window.onload = function (evt) {
             return new Promise((resolve, reject) => {
                 fetchCharacterObject(characterNames[0])
                     .then(characterObj => {
-                        Player.characters.characterOne = characterObj;
+                        Player.characters.characterOne = reformatDataFromApi(characterObj);
                         return fetchCharacterObject(characterNames[1]);
                     })
                     .then(characterObj => {
-                        Player.characters, characterTwo = characterObj;
-                        return fetchCharacterObject(characterNames[2]);
+                        Player.characters.characterTwo = reformatDataFromApi(characterObj);
+                        return fetchCharacterObject(
+                            characterNames[2]);
                     }).then(characterObj => {
-                        Player.characters.characterThree = characterObj;
+                        Player.characters.characterThree = reformatDataFromApi(characterObj);
                     }).catch(err => {
-                        console.log("error in fetchCharacterObject promise chain:", err)
+                        // if there is an error, load backup data
+                        reject(err);
                     }).finally(() => {
-                        // reformat the character objects
-                        console.log("PLAYER:", Player)
-                    })
-
-
-
-
-
-
-                // go to the API and fetch all of the player's characters:
-                // Promise.all([fetchCharacterObject(characterNames[0])], [fetchCharacterObject(characterNames[1])], [fetchCharacterObject(characterNames[2])])
-                //     .then(arrayOfCharacters => {
-                //         // console.log("array of characters:", arrayOfCharacters)
-                //         // characterNumber:
-                //         // let reformattedCharacters = arrayOfCharacters.map(apiCharacterObject => {
-                //         //     return reformatDataFromApi(apiCharacterObject)
-                //         // });
-                //         // Player.characters = reformattedCharacters[0];
-                //         // Player.charactersLoaded = true;
-                //         // if everything was sucessfully fetched from api, resolve Player promise:
-                //         resolve(Player)
-                //     }).catch(err => {
-                //         // console.log('error in create player promise-chain:', err);
-                //         // if there was an error fetching any of the characters from the API, reject Player promise:
-                //         reject(err);
-                //     })
+                        resolve(Player);
+                    });
             });
         }
         // end of createPlayer function
 
         // CREATING THE GAME:
-        let game = {
+        let playerOneName = "professor grim";
+        let playerOneCharacters = ["oddish", "gloom", "weezing"];
+        let playerTwoName = "chuck";
+        let playerTwoCharacters = ["dragonair", "butterfree", "charmeleon"];
+
+        const game = {
             playerOne: {},
             playerTwo: {},
             winner: null
         };
 
-        Promise.all([createPlayer(playerOneName, playerOneCharacters), createPlayer(playerTwoName, playerTwoCharacters)])
-            .then(arrayOfPlayers => {
-                // console.log("ARRAY OF PLAYERS", arrayOfPlayers)
-                game.playerOne = arrayOfPlayers[0];
-                game.playerTwo = arrayOfPlayers[1];
-                // console.log("the players are loaded:", arrayOfPlayers);
-                // console.log("GAME:", game)
+        createPlayer("professor grim", characterNames = ['oddish', 'gloom', 'weezing'])
+            .then(playerObject => {
+                game.playerOne = playerObject;
+                return createPlayer("chuck", characterNames = ['dragonair', 'butterfree', 'charmeleon'])
+            }).then(playerObject => {
+                game.playerTwo = playerObject;
             }).catch(err => {
-                // console.log("there was an error in creating the players. Loading backup data for game.", err);
-                // load backup data, if api is down
-            });
-
+                console.log("error in create players chain:", err)
+            }).finally(() => {
+                console.log("FINAL GAME:", game);
+                setTimeout(function () {
+                    for (let i = 0; i < playButtons.length; i++) {
+                        let button = playButtons[i];
+                        button.classList.add("spinningButtons");
+                    }
+                }, 3000);
+            })
 
         // AT THIS POINT, GAME IS INITIALIZED WITH PLAYERONE AND PLAYERTWO AND THEIR CHARACTERS
 
 
         // click listener: if you click a character button, the event-listener will fire a function to play a round:
-        let gameElement = document.getElementById("game-frame");
-        gameElement.addEventListener("click", (e) => {
-            let { player, character } = e.target.dataset;
-            if (player && character) {
-                playMove(player, character)
-            }
-        });
+        // let gameElement = document.getElementById("game-frame");
+        // gameElement.addEventListener("click", (e) => {
+        //     let { player, character } = e.target.dataset;
 
-        // 
-        function playMove(player, characterName) {
-            // console.log(player, characterName);
+        //     if (player && character) {
+        //         playMove(player, character)
+        //     }
+        // });
 
-            // get the player's score-box, stat-box, and name-box
-            let scoreBox = document.getElementById(`${player}-score-box`);
-            let statBox = document.getElementById(`${player}-stat-box`);
-            let nameBox = document.getElementById(`${player}-name-box`);
-            // console.log(scoreBox, statBox, nameBox);
+        // // 
+        // function playMove(player, characterName) {
+        //     // console.log(player, characterName);
 
-            // get the character object;
-            // let character = game['professor grim'];
-            // console.log("CHARACTER TO BE PLAYED", character)
+        //     // get the player's score-box, stat-box, and name-box
+        //     let scoreBox = document.getElementById(`${player}-score-box`);
+        //     let statBox = document.getElementById(`${player}-stat-box`);
+        //     let nameBox = document.getElementById(`${player}-name-box`);
 
-            console.log(game)
-        }
+
+        //     // console.log(scoreBox, statBox, nameBox);
+
+        //     // get the character object;
+        //     // let character = game['professor grim'];
+        //     // console.log("CHARACTER TO BE PLAYED", character)
+
+
+        // }
 
 
 
@@ -557,3 +547,22 @@ window.onload = function (evt) {
         //         }
         //     }
         // }
+
+
+             // go to the API and fetch all of the player's characters:
+                // Promise.all([fetchCharacterObject(characterNames[0])], [fetchCharacterObject(characterNames[1])], [fetchCharacterObject(characterNames[2])])
+                //     .then(arrayOfCharacters => {
+                //         // console.log("array of characters:", arrayOfCharacters)
+                //         // characterNumber:
+                //         // let reformattedCharacters = arrayOfCharacters.map(apiCharacterObject => {
+                //         //     return reformatDataFromApi(apiCharacterObject)
+                //         // });
+                //         // Player.characters = reformattedCharacters[0];
+                //         // Player.charactersLoaded = true;
+                //         // if everything was sucessfully fetched from api, resolve Player promise:
+                //         resolve(Player)
+                //     }).catch(err => {
+                //         // console.log('error in create player promise-chain:', err);
+                //         // if there was an error fetching any of the characters from the API, reject Player promise:
+                //         reject(err);
+                //     })

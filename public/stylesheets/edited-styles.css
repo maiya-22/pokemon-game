@@ -85,9 +85,6 @@ body {
   /* POKEMON LOGO */
 
   #pokeLogo {
-
-
-    border: dotted gray 1px;
     /* #game-frame has position relative on it, so positioning to that */
     position: absolute;
     top: calc(var(--unit) * 0);
@@ -100,8 +97,7 @@ body {
      
   }
   #pokeLogo img {
-
-    height: calc(var(--unit) * 11); 
+    height: calc(var(--unit) * 9); 
   }
 
 
@@ -318,6 +314,8 @@ body {
       
 
 /* POKEMON CIRCLES */
+
+
 .pokemonContainer {
     /* to adjust pokemon cirles' spacing, change this width: */
     width: 80%;
@@ -325,14 +323,23 @@ body {
     flex-direction: row;
     justify-content: space-around; }
   
+    .spinningButtons {
+        -webkit-animation: rotation 2s 1 ease-in;
+        -webkit-animation: rotation 2s infinite linear 2s;
+    }
+
+    .play-button {
+        width: 100px;
+        height: 100px;
+       
+    }
+
   #professorPokemon {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly; }
   
   #oddishCircle {
-    width: 100px;
-    height: 100px;
    
     background-color: #EBEBEB;
     border-style: ridge;
@@ -340,13 +347,13 @@ body {
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    -webkit-animation: rotation 2s infinite linear;
+   
    
     background-image: url("/images/oddish.png"); }
   
   #gloomCircle {
-    width: 100px;
-    height: 100px;
+ 
+  
    
     background-color: #EBEBEB;
     border-style: ridge;
@@ -354,13 +361,12 @@ body {
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    -webkit-animation: rotation 2s infinite linear;
+   
  
     background-image: url("/images/gloom.png"); }
   
   #weezingCircle {
-    width: 100px;
-    height: 100px;
+  
    
     background-color: #EBEBEB;
     border-style: ridge;
@@ -368,7 +374,7 @@ body {
     border-width: 7px;
     border-radius: 50%;
     background-size: cover;
-    -webkit-animation: rotation 2s infinite linear;
+   
    
     background-image: url("/images/weezing.png");
    }
@@ -379,8 +385,7 @@ body {
     justify-content: flex-end; }
   
   #dragonairCircle {
-    width: 100px;
-    height: 100px;
+
     
     background-color: #EBEBEB;
     border-style: ridge;
@@ -390,13 +395,11 @@ body {
     background-size: cover;
     background-image: url("/images/dragonair.jpg"); 
   
-    -webkit-animation: rotation 2s infinite linear;
+  
   }
   
   #butterfreeCircle {
-    width: 100px;
-    height: 100px;
-   
+  
     background-color: #EBEBEB;
     border-style: ridge;
     border-color: #0081C6;
@@ -404,12 +407,11 @@ body {
     border-radius: 50%;
     background-size: cover;
     background-image: url("/images/butterfree.jpg");
-    -webkit-animation: rotation 2s infinite linear;
+    
    }
   
   #charmeleonCircle {
-    width: 100px;
-    height: 100px;
+ 
     
     background-color: #EBEBEB;
     border-style: ridge;
@@ -418,7 +420,7 @@ body {
     border-radius: 50%;
     background-size: cover;
     background-image: url("/images/charmeleon.jpg"); 
-    animation: rotation 2s infinite linear;
+   
 }
 
     @keyframes rotation {
