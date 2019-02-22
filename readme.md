@@ -31,3 +31,4 @@
 
 ![Pokemon Game](https://github.com/maiya-22/pokemon-game/blob/master/readme_images/pokemon-game.png)
 ![Pokemon Game Layout 2](https://github.com/maiya-22/pokemon-game/blob/master/readme_images/pokemon-game-layout-2.png)
+![Pokemon Game Layout 2](https://github.com/maiya-22/pokemon-game/blob/master/readme_images/pokemon-game-refactor.png)
