@@ -148,10 +148,12 @@ window.onload = function (evt) {
         // DRAW the stats animation:
         // Add the HTML/DOM elements that will be labels for the stats and contain a bar that measures the stat:
         let statNames = Object.keys(stats);
+        let totalScore = 0;
         statNames.forEach(stat => {
             // in the stat box, create dom elements to hold the labels for each stat
             // and create a frame for a red bar to be drawn to measure the stat
-            let statValue = stats[stat]
+            let statValue = stats[stat];
+            totalScore += statValue;
             const statWrap = document.createElement('div');
             statWrap.classList.add('statWrap');
             statWrap.setAttribute('id', 'statTitle');
@@ -185,6 +187,7 @@ window.onload = function (evt) {
                 // have a CSS animation and glow:
                 if (i === statValue / 2 - 1 || i === statValue / 2 - 0.5) {
                     setTimeout(() => {
+                        scoreBox.innerHTML = totalScore;
                         const statNumberBox = document.createElement('div');
                         statNumberBox.classList.add('statNumberBox');
                         statNumberBox.innerHTML = stats[stat];
