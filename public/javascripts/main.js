@@ -129,6 +129,9 @@ window.onload = function (evt) {
         let scoreBox = document.getElementById(`${playerName}-score-box`);
         let statBox = document.getElementById(`${playerName}-stat-box`);
         let nameBox = document.getElementById(`${playerName}-name-box`);
+        let instructions = document.getElementById(`${playerName}-instructions`);
+
+
 
         nameBox.innerHTML = "";
         let characterNameDisplay = document.createElement('div');

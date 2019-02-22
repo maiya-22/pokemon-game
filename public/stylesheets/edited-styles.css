@@ -1,7 +1,7 @@
-@import url("./animateCSS/animate.css");
+@import url("./rubberBand.css");
 /* to adjust the app size, do media query and adjust the root unit of measurement */
 :root {
-    --unit: 1rem; 
+    --unit: 0.9rem; 
   }
 
 /* calc(var(--unit) * 5) */
@@ -78,7 +78,8 @@ body {
   .shadow {
     text-shadow: 3px 3px 5px #B8860B;
   }
-  
+
+
   /* POKEMON LOGO */
 
   #pokeLogo {
@@ -121,21 +122,20 @@ body {
 
 
   .nameBox {
-    /* width: 150px; */
-    width: calc(var(--unit) * 10.5);
-    height: 35px;
+    width: calc(var(--unit) * 10.75);
+    height: calc(var(--unit) * 2.5);
     padding-top: 2px;
     background-color: #fff;
     border-style: ridge;
     border-color: #F7AF1D;
-  
+
     border-radius: 25px;
     border-width: 5px;
     font-family: "Andale Mono", AndaleMono,monospace;
     color: #0081C6;
     text-align: center;
     animation: glow 2s ease-in-out infinite;
-    margin-bottom: 1rem;
+    margin-bottom: calc(var(--unit) * 1);
   }
 
 .character-text-box {
@@ -144,7 +144,7 @@ body {
 }
 
   .current-character-name {
-      font-size: 1.5rem;
+    font-size: calc(var(--unit) * 1.5);
       animation-name: rubberBand;
       animation-duration: 1s;
       color: #F7AF1D;
@@ -153,10 +153,24 @@ body {
      
 }
 
+#playerOne-name-box,  #playerTwo-name-box {
+    
+}
+.instructions{
+  font-size: calc(var(--unit) * 1);
+  color: rgb(247, 123, 29);
+  font-family: "Andale Mono", AndaleMono,monospace;
+  transform: translate(0rem, calc(var(--unit)* 0.5));
+  
+}
+
+
   
   @keyframes glow {
+
+   
     50% {
-      box-shadow: 0 0 60px #ffff33;
+      box-shadow: 0 0 calc(var(--unit) * 3.75) #ffff33;
 
      }}
 
@@ -188,12 +202,12 @@ body {
         margin-top: 0rem;
         width: 100%;
         display: grid;
-        grid-template-columns: 100px 10fr 0.5rem;
+        grid-template-columns: calc(var(--unit) * 6.25) 10fr 0.5rem;
       }
       
       .statBarWrap {
         width: 100%;
-        height: 15px;
+        height: calc(var(--unit) * 1);
         display: grid;
         grid-template-columns: repeat(100, 1fr);
         margin-bottom: 1rem;
@@ -218,15 +232,14 @@ body {
       
       
       .statNumberBox {
-        /* transform: translate(-30px, -40px); */
+        transform: translate(calc(var(--unit) * 1.875), calc(var(--unit) * 2.5));
         color: #0081c6;
         background-color: white;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        width: 1rem;
-        height: 1rem;
+        padding-left: calc(var(--unit) * 2);
+        padding-right: calc(var(--unit) * 2);
+        width: calc(var(--unit) * 1);
+        height: calc(var(--unit) * 1);
         font-weight: bold;
-        /* transform: scale(300%); */
       
         animation-iteration-count: 1;
         animation-fill-mode: both;
@@ -238,15 +251,15 @@ body {
           /* outer white */ -10px 0 20px #ffff33,
           /* outer left magenta */ 10px 0 20px #ffff33;
           animation-name: rubberBand;
-          animation-duration: 1000ms;
-          
+          animation-duration: 1000ms;    
+           z-index:1000;
       }
       
       
       #statLabel {
         font-family: "Andale Mono", AndaleMono, monospace;
-        font-size: 15px;
-        margin-left: 15px;
+        font-size: calc(var(--unit) * 1);
+        margin-left: calc(var(--unit) * 1);
         color: #0081c6;
         z-index: 2;
         padding: 0px;
@@ -262,49 +275,9 @@ body {
         }
       }
       
-      @keyframes bounceInRight {
-        from,
-        60%,
-        75%,
-        90%,
-        to {
-          -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-          animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
-      
-        from {
-          opacity: 0;
-          -webkit-transform: translate3d(3000px, 0, 0);
-          transform: translate3d(3000px, 0, 0);
-        }
-      
-        60% {
-          opacity: 1;
-          -webkit-transform: translate3d(-25px, 0, 0);
-          transform: translate3d(-25px, 0, 0);
-        }
-      
-        75% {
-          -webkit-transform: translate3d(10px, 0, 0);
-          transform: translate3d(10px, 0, 0);
-        }
-      
-        90% {
-          -webkit-transform: translate3d(-5px, 0, 0);
-          transform: translate3d(-5px, 0, 0);
-        }
-      
-        to {
-          -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      
-      
-
       
       .statsBox {
-        height: 250px;
+        height:calc(var(--unit) * 16.5);
         width: calc(var(--unit) * 30);
         border-radius: 25px;
         border-width: 10px;
@@ -424,8 +397,22 @@ body {
           -webkit-transform: rotate(0deg); }
         to {
           -webkit-transform: rotate(359deg); } }
+          
+            @keyframes fadeOut {
+                from {
+                    opacity: 1
+                }
+                to {
+                    opacity: 0
+                }
+            }
 
-
+            .fadeOut {
+                animation-name: fadeOut;
+                animation-duration: 0.25s;
+                animation-fill-mode: forwards;
+            }
+          
   /* TO EASILY SEE WHICH DIVS ARE THE LAYOUT FRAME, PUT A BORDER ON THIS CLASS */
   .frame {
       /* border: dotted purple 5px; */
