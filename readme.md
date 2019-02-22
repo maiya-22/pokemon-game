@@ -12,6 +12,7 @@
 
 - Re-initializing repository, in order to refactor from serverless html to express server.
 - Deployed on Heroku: https://vermillion-pokemon-game.herokuapp.com/.
+- Stat animation calling setTimeout about 200 times (inside loop). Maybe should refactor with pure CSS animation.
 
 #### By:
 
