@@ -5,8 +5,8 @@
     - DOM manipulation with setTimeout and vanilla JS, to render animations. 
     - CSS Animations combine our @keyframes CSS animations with the animate.css library.
     - Express server with EJS view engine.
-    - Game rendering via client-side JS file: https://github.com/maiya-22/pokemon-game/blob/refactor-js/public/javascripts/main.js
-
+    - Game rendering via client-side JS file.
+    
 #### Project Status:
 
 - Re-initializing repository, in order to refactor from serverless html to express server.
