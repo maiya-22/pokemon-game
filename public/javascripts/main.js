@@ -62,6 +62,7 @@ window.onload = function (evt) {
                         characterNames[2]);
                 }).then(characterObj => {
                     Player.characters.characterThree = reformatDataFromApi(characterObj);
+                    resolve(Player);
                 }).catch(err => {
                     // if there is an error, load backup data
                     reject(err);
