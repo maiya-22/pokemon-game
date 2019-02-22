@@ -99,15 +99,8 @@ window.onload = function (evt) {
         }).catch(err => {
             // console.log("error in create players chain:", err)
             console.log(err);
-        })
-    // .finally(() => {
-    //     // buttons start spinning when game can be played:
+        });
 
-    //     for (let i = 0; i < playButtons.length; i++) {
-    //         let button = playButtons[i];
-    //         button.classList.add("spinningButtons");
-    //     }
-    // })
 
     // NOW ANIMATE THE GAME:
     // click listener: if you click a character button, the event-listener will fire a function to play a round:
@@ -135,7 +128,6 @@ window.onload = function (evt) {
         let instructions = document.getElementById(`${playerName}-instructions`);
 
 
-
         nameBox.innerHTML = "";
         let characterNameDisplay = document.createElement('div');
         characterNameDisplay.classList = "current-character-name";
@@ -144,10 +136,6 @@ window.onload = function (evt) {
         setTimeout(() => {
             nameBox.appendChild(characterNameDisplay);
         }, 10);
-
-        // console.log("characterNameDisplay", characterNameDisplay);
-        // console.log("nameBox", nameBox);
-        // nameBox.appendChild(characterNameDisplay);
 
         statBox.innerHTML = "";
         // DRAW the stats animation:

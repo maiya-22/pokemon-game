@@ -327,12 +327,10 @@ body {
         align-items: center;
         font-weight: 900;
         cursor: pointer;
-    }
-
-    .spinningButtons {
         -webkit-animation: rotation 2s 1 ease-in;
         -webkit-animation: rotation 2s infinite linear 2s;
     }
+  
 
     .play-button:hover {
         border-color: #bdbd25;
