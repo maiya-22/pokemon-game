@@ -96,7 +96,8 @@ window.onload = function (evt) {
             game.playerTwo = {};
             game.playerTwo = playerObject;
         }).catch(err => {
-            console.log("error in create players chain:", err)
+            // console.log("error in create players chain:", err)
+            console.log(err);
         }).finally(() => {
             // buttons start spinning when game can be played:
 
@@ -143,7 +144,7 @@ window.onload = function (evt) {
         }, 10);
 
         // console.log("characterNameDisplay", characterNameDisplay);
-        console.log("nameBox", nameBox);
+        // console.log("nameBox", nameBox);
         // nameBox.appendChild(characterNameDisplay);
 
         statBox.innerHTML = "";
