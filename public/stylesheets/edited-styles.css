@@ -1,7 +1,7 @@
 @import url("./rubberBand.css");
 /* to adjust the app size, do media query and adjust the root unit of measurement */
 :root {
-    --unit: 0.9rem; 
+    --unit: 1rem; 
   }
 
 /* calc(var(--unit) * 5) */
