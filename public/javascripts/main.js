@@ -3,6 +3,8 @@
 
 window.onload = function (evt) {
 
+    // function creates a player by defining the player name, and fetching all of their pokemon data from the api
+    // returns a promise for the player
     const createPlayer = (name, characterNames = ['character-name one', 'character-name two', 'character-name three']) => {
         let playerNumbers = "playerOne playerTwo".split(' ')
         let Player = {
@@ -11,8 +13,8 @@ window.onload = function (evt) {
             characters: {},
             charactersLoaded: false,
         }
-
         // helper function will fetch each character from the Pokemon API, by the character's name:
+        // returns a promise for the pokemon character:
         const fetchCharacterObject = (characterName) => {
             return new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
@@ -33,8 +35,7 @@ window.onload = function (evt) {
                 };
             });
         }
-
-        // helper function takes the large ammount of data returned from the api and reformats just the info that we need into a simple object:
+        // helper function takes the data returned from the api and reformats just the info that we need into a simple object:
         const reformatDataFromApi = (apiCharacterObject) => {
             const characterName = apiCharacterObject.name;
             const reformattedStats = apiCharacterObject.stats.reduce((reformatted, stat) => {
@@ -62,13 +63,16 @@ window.onload = function (evt) {
                         characterNames[2]);
                 }).then(characterObj => {
                     Player.characters.characterThree = reformatDataFromApi(characterObj);
+                    // once all of the Pokemon characters have been fetched,
+                    // resolve the promise that called this promise chain:
                     resolve(Player);
                 }).catch(err => {
                     // if there is an error, load backup data
                     reject(err);
                 })
             // .finally(() => {
-            //     // console.log("fetch character promise has run");
+            // Safari not recognizing finally().
+            // console.log("fetch character promise has run");
             // });
         });
     }
@@ -87,23 +91,25 @@ window.onload = function (evt) {
         winner: null
     };
 
-    createPlayer("professor grim", ['oddish', 'gloom', 'weezing'])
+    // Call the promises that create the players
+    // Should mabye be reformatted to Promise.all, so that both 
+    // characters are created at the same time.
+    createPlayer(playerOneName, playerOneCharacters)
         .then(playerObject => {
+            // when the player arrives, store it to the global game variable
             game.playerOne = {};
             game.playerOne = playerObject;
-            // console.log("GAME", game);
-            return createPlayer("chuck", ['dragonair', 'butterfree', 'charmeleon'])
+            return createPlayer(playerTwoName, playerTwoCharacters)
         }).then(playerObject => {
+            // when the player arrives, store it to the global game variable
             game.playerTwo = {};
             game.playerTwo = playerObject;
         }).catch(err => {
-            // console.log("error in create players chain:", err)
-            console.log(err);
+            console.log("error in create players chain:", err)
         });
 
-
     // NOW ANIMATE THE GAME:
-    // click listener: if you click a character button, the event-listener will fire a function to play a round:
+    // click listener: if you click a character button, the event-listener will fire the playMove function to animate the player's turn:
     let gameElement = document.getElementById("game-frame");
     gameElement.addEventListener("click", (e) => {
         let playerName = e.target.dataset.player;
@@ -127,21 +133,24 @@ window.onload = function (evt) {
         let nameBox = document.getElementById(`${playerName}-name-box`);
         let instructions = document.getElementById(`${playerName}-instructions`);
 
-
+        // clear the nameBox of instructions or previous played character's name & remove previous stats drawing:
         nameBox.innerHTML = "";
+        statBox.innerHTML = "";
         let characterNameDisplay = document.createElement('div');
         characterNameDisplay.classList = "current-character-name";
         characterNameDisplay.innerHTML = character.name[0].toUpperCase() + character.name.slice(1);
 
+        // put the character's name in the box
         setTimeout(() => {
             nameBox.appendChild(characterNameDisplay);
         }, 10);
 
-        statBox.innerHTML = "";
         // DRAW the stats animation:
         // Add the HTML/DOM elements that will be labels for the stats and contain a bar that measures the stat:
         let statNames = Object.keys(stats);
         statNames.forEach(stat => {
+            // in the stat box, create dom elements to hold the labels for each stat
+            // and create a frame for a red bar to be drawn to measure the stat
             let statValue = stats[stat]
             const statWrap = document.createElement('div');
             statWrap.classList.add('statWrap');
@@ -154,16 +163,25 @@ window.onload = function (evt) {
             statBarWrap.classList.add('statBarWrap');
             statWrap.appendChild(statBarWrap);
             statBox.appendChild(statWrap);
-            for (let i = 0; i < statValue; i++) {
+            const statBar = document.createElement('div');
+            statBar.classList.add('statBox');
+            // for each stat, append one div with a red background
+            // at intervals, increase the width of the div, for appearance of a bar growing:
+            statBarWrap.appendChild(statBar);
+            statBarWidth = 0;
+            statBar.style.width = `${statBarWidth}%`;
+            // loop through half the value of the stat, otherwise, it's too long:
+            for (let i = 0; i < (statValue / 2); i++) {
                 setTimeout(() => {
                     score += 1;
                     scoreBox.innerHTML = score;
-                    const statBox = document.createElement('div');
-                    statBox.classList.add('statBox');
-                    statBarWrap.appendChild(statBox);
+                    statBarWidth += 1;
+                    statBar.style.width = `${statBarWidth}px`;
                 }, i * 20);
-                // if the current box-number is at the actual stat value, then add the statNumber here and break out of loop:
-                if (i === statValue - 1) {
+                // if you are at the end of the loop/ the value of the stat: 
+                // append a dom element that will illustrate the total, and
+                // have a CSS animation and glow:
+                if (i === statValue / 2 - 1 || i === statValue / 2 - 0.5) {
                     setTimeout(() => {
                         const statNumberBox = document.createElement('div');
                         statNumberBox.classList.add('statNumberBox');
