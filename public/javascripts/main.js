@@ -66,9 +66,10 @@ window.onload = function (evt) {
                 }).catch(err => {
                     // if there is an error, load backup data
                     reject(err);
-                }).finally(() => {
-                    // console.log("fetch character promise has run");
-                });
+                })
+            // .finally(() => {
+            //     // console.log("fetch character promise has run");
+            // });
         });
     }
     // end of createPlayer function
