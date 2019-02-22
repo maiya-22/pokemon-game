@@ -177,7 +177,7 @@ window.onload = function (evt) {
                     scoreBox.innerHTML = score;
                     statBarWidth += 1;
                     statBar.style.width = `${statBarWidth}px`;
-                }, i * 20);
+                }, i * 40);
                 // if you are at the end of the loop/ the value of the stat: 
                 // append a dom element that will illustrate the total, and
                 // have a CSS animation and glow:
@@ -187,7 +187,7 @@ window.onload = function (evt) {
                         statNumberBox.classList.add('statNumberBox');
                         statNumberBox.innerHTML = stats[stat];
                         statBarWrap.appendChild(statNumberBox);
-                    }, i * 25);
+                    }, i * 50);
                 }
             }
         });
