@@ -66,7 +66,7 @@ window.onload = function (evt) {
                     // if there is an error, load backup data
                     reject(err);
                 }).finally(() => {
-                    resolve(Player);
+                    console.log("fetch character promise has run");
                 });
         });
     }
@@ -74,7 +74,6 @@ window.onload = function (evt) {
 
     // CREATING THE GAME:
     let playButtons = document.getElementsByClassName('play-button');
-
     let playerOneName = "professor grim";
     let playerOneCharacters = ["oddish", "gloom", "weezing"];
     let playerTwoName = "chuck";
@@ -91,7 +90,6 @@ window.onload = function (evt) {
             game.playerOne = {};
             game.playerOne = playerObject;
             console.log("GAME", game);
-
             return createPlayer("chuck", ['dragonair', 'butterfree', 'charmeleon'])
         }).then(playerObject => {
             game.playerTwo = {};
@@ -99,6 +97,7 @@ window.onload = function (evt) {
         }).catch(err => {
             console.log("error in create players chain:", err)
         }).finally(() => {
+
             // buttons start spinning when game can be played:
             for (let i = 0; i < playButtons.length; i++) {
                 let button = playButtons[i];
