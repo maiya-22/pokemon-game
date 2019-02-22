@@ -175,6 +175,8 @@ window.onload = function (evt) {
                 setTimeout(() => {
                     score += 1;
                     scoreBox.innerHTML = score;
+                    score += 1;
+                    scoreBox.innerHTML = score;
                     statBarWidth += 1;
                     statBar.style.width = `${statBarWidth}px`;
                 }, i * 40);
