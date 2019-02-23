@@ -10,7 +10,6 @@
 
 #### Project Status:
 
-- Re-initializing repository, in order to refactor from serverless html to express server.
 - Deployed on Heroku: https://vermillion-pokemon-game.herokuapp.com/.
 
 #### By:
