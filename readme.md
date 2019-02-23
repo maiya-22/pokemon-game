@@ -1,5 +1,6 @@
 ## Vermillion Gym Pokemon Game:
-- Student project. A little game app, to practice fetching from an api, promises, and animations. Also experimented with setTimeout with DOM manipulation.
+- Student project. 
+- A little game app, to practice fetching from an api, promises, and animations. Also experimented with setTimeout with DOM manipulation.
 
 - Code used:
     - ES6: promisifying vanilla XMLHttpRequest object via vanilla JS Promises; JS factory functions. 
