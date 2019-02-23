@@ -1,5 +1,5 @@
 ## Vermillion Gym Pokemon Game:
-- A little game app, to practice fetching from an api, promises, and animations.
+- Student project. A little game app, to practice fetching from an api, promises, and animations. Also experimented with setTimeout with DOM manipulation.
 
 - Code used:
     - ES6: promisifying vanilla XMLHttpRequest object via vanilla JS Promises; JS factory functions. 
@@ -12,7 +12,6 @@
 
 - Re-initializing repository, in order to refactor from serverless html to express server.
 - Deployed on Heroku: https://vermillion-pokemon-game.herokuapp.com/.
-- Stat animation calling setTimeout about 200 times (inside loop). Maybe should refactor with pure CSS animation.
 
 #### By:
 

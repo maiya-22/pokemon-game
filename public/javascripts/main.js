@@ -174,6 +174,7 @@ window.onload = function (evt) {
             statBar.style.width = `${statBarWidth}%`;
             // loop through half the value of the stat, otherwise, it's too long:
             for (let i = 0; i < (statValue / 2); i++) {
+                // Experimenting with with setTimeout and DOM manipulation; however, it slows down the browser tremendously.
                 setTimeout(() => {
                     score += 1;
                     scoreBox.innerHTML = score;
